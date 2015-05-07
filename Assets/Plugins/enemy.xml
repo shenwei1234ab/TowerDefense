@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ROOT>
+	<table wave="1" enemyname="micro_orc" level="1" wait="3"/>
+	<table wave="1" enemyname="micro_orc" level="1" wait="3"/>
+	<table wave="2" enemyname="micro_ghost" level="2" wait="4"/>
+	<table wave="2" enemyname="micro_ghost" level="2" wait="4"/>
+	<table wave="3" enemyname="micro_orc" level="2" wait="4"/>
+	<table wave="3" enemyname="micro_ghost" level="2" wait="4"/>
+</ROOT>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+
+
+<!-- content -->
+  <table TowerName="" Level="" AttackArea="" AttackPower="" AttackTime="" Attacktype="all" Cost="5" PrePath=""/>
+   <table TowerName="" Level="" AttackArea="" AttackPower="" AttackTime="" Attacktype="all" Cost="5" PrePath=""/>
+</Root>
