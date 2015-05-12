@@ -87,7 +87,6 @@ public class Laser : Bullet
         //射击到了怪物
         if (collider.tag.CompareTo("Monster") == 0)
         {
-            Debug.Log("layser射到了");
             //调用怪物的getdamage方法
             collider.gameObject.SendMessage("GetDamage", m_AttackPower);
             Destroy(gameObject);

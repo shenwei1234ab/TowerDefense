@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour
     void Awake()
     {
         //从Prefab文件中载入血条的预设
-
         m_LifeBarPreb = Resources.LoadAssetAtPath<GameObject>(m_lifePrebFilePath);
         m_uiCamera = GameObject.Find("Camera").GetComponent<Camera>();
         m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -163,7 +162,8 @@ public class Enemy : MonoBehaviour
             m_curLife = m_maxLife;
             //设置ui
            UISprite lifeFrontSprite= m_lifeSlider.gameObject.GetComponentInChildren<UISprite>();
-           lifeFrontSprite.width = m_maxLife;
+            //设置血量与血条长度的对应关系
+           lifeFrontSprite.width = m_maxLife/10;
         }
     }
 
@@ -178,7 +178,7 @@ public class Enemy : MonoBehaviour
         int damage = attackPower - m_enemyDefense;
         if(damage <=0)
         {
-            return;
+            damage = 1;
         }
         Life = m_curLife - damage;
         if(Life <= 0)

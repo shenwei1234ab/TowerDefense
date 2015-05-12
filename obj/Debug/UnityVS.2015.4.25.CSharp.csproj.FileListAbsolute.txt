@@ -1,0 +1,47 @@
+D:\unity\project\2015.4.25\obj\Debug\UnityVS.2015.4.25.CSharp.csprojResolveAssemblyReference.cache
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+D:\unity\project\2015.4.25\obj\Debug\Assembly-CSharp.dll
+D:\unity\project\2015.4.25\obj\Debug\Assembly-CSharp.pdb
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-UnityScript-firstpass.dll
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.dll
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.dll
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.xml
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.xml
+E:\Unity Project2\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+E:\Unity Project2\TowerDefense\2015.4.25\obj\Debug\UnityVS.2015.4.25.CSharp.csprojResolveAssemblyReference.cache
+E:\Unity Project2\TowerDefense\2015.4.25\obj\Debug\Assembly-CSharp.dll
+E:\Unity Project2\TowerDefense\2015.4.25\obj\Debug\Assembly-CSharp.pdb
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-UnityScript-firstpass.dll
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.dll
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.dll
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.xml
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.xml
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\obj\Debug\UnityVS.2015.4.25.CSharp.csprojResolveAssemblyReference.cache
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\obj\Debug\Assembly-CSharp.dll
+E:\Unity Project2\TowerDefense - 副本\2015.4.25\obj\Debug\Assembly-CSharp.pdb
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-UnityScript-firstpass.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.xml
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.xml
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+E:\unity 3 project\TowerDefense\2015.4.25\obj\Debug\UnityVS.2015.4.25.CSharp.csprojResolveAssemblyReference.cache
+E:\unity 3 project\TowerDefense\2015.4.25\obj\Debug\Assembly-CSharp.dll
+E:\unity 3 project\TowerDefense\2015.4.25\obj\Debug\Assembly-CSharp.pdb

@@ -2,24 +2,54 @@
 using System.Collections;
 
 
+
+public enum TowerState
+{
+    None,
+    Building,
+}
+
+//对应Tower.xml文件 
+public enum TowerType
+{
+    Acid,
+    Cannon,
+    Cross,
+    Crystal,
+    Fire,
+    Gatlin,
+    Gauss,
+    Laser,
+    Mortar,
+    Plasma,
+    Rocket,
+    Tesla
+}
+
+
 public class Tower : MonoBehaviour 
 {
-   
+    //存放进度条预设的文件位置
+    public string m_processPrebFilePath = "Assets/Prefab/ProcessBar.prefab";
+
+    //建造的时间
+    public float m_buildTime = 3.0f;
+    //要发射的位置
+    public Transform m_ShootPos;
     //要旋转的头部
     public Transform m_TopTower;
     //头部旋转的速度
     public float m_RotateSpeed = 5.0f;
-
-    //要发射的位置
-    public Transform m_ShootPos;
-    private  int m_shotTime=0;
-    private Transform m_transform;
-
-
-    
-    private Transform m_AttackEnemyTran=null;
+    protected Enemy m_AttackEnemy = null;
+    protected Transform m_transform;
+    protected Transform m_AttackEnemyTran=null;
 
     [HideInInspector]
+    public string m_towerName;
+    //最大等级
+    public int m_maxLevel = 3;
+    //当前等级
+    public int m_curLevel = 1;
     //攻击范围
     public float m_AttackArea=10;
 
@@ -29,31 +59,65 @@ public class Tower : MonoBehaviour
     //攻击间隔
     public float m_AttackTime = 1.0f;
     //计时器
-    private float m_Timer = 0.0f;
+    protected float m_Timer = 0.0f;
 
     //发射的子弹
     public GameObject m_Rockets;
 
+
+    //进度条
+    public GameObject m_processBar;
+    public Transform m_processBarPos;
+    
+   
+    //当前的状态 
+    public TowerState m_towerState;
 	// Use this for initialization
-	void Start () 
+	protected void Start () 
     {
         m_transform = gameObject.transform;
         m_Timer = m_AttackTime;
+        m_towerState = TowerState.Building;
+        //创建ProcessBar并注册事件
+        GameObject newBar= Resources.LoadAssetAtPath<GameObject>(m_processPrebFilePath);
+        GameObject processBar = (GameObject)GameObject.Instantiate(newBar);
+        //添加到ui 中
+        processBar.transform.parent = UICamera.currentCamera.transform;
+        processBar.transform.localScale = new Vector3(1, 1, 1);
+        if (!m_processBarPos)
+        {
+            m_processBarPos = this.transform;
+        }
+        processBar.transform.position = UIManager.WorldPosToUI(m_processBarPos.position);
+        //注册事件
+        processBar.GetComponent<ProcessBar>().m_timeOverEvent += BuildComplete;
 	}
-	
-	// Update is called once per frame
-	void Update () 
+
+
+    void BuildComplete(GameObject sender)
     {
-	    //找到攻击返回内的敌人
+        Destroy(sender);
+        m_towerState = TowerState.None;
+    }
+
+	// Update is called once per frame
+	protected void Update () 
+    {
+        if (m_towerState == TowerState.Building )
+        {
+            return;
+        }
+        //建造或者升级完成
         ScanForEnemy();
         RotateTo();
         Attack();
 	}
 
+    
+
     //在自己的攻击范围内找可以攻击的敌人
-    void ScanForEnemy()
+   public virtual void ScanForEnemy()
     {
-        //默认之前有攻击敌人
         if (m_AttackEnemyTran)
         {
             //判断攻击的敌人是否出了自己的攻击范围
@@ -61,6 +125,7 @@ public class Tower : MonoBehaviour
             if (dis > m_AttackArea)
             {
                 m_AttackEnemyTran = null;
+                m_AttackEnemy = null;
                 //重新去找
             }
         }
@@ -85,10 +150,12 @@ public class Tower : MonoBehaviour
                     }
                     else
                     {
-                        if (tmpLife == 0 || enemy.Life > tmpLife)
+                        //找生命值最小的
+                        if (tmpLife == 0 || enemy.Life < tmpLife)
                         {
                             m_AttackEnemyTran = enemy.gameObject.transform;
                             tmpLife = enemy.Life;
+                            m_AttackEnemy = enemy;
                         }
                     }
                 }
@@ -110,10 +177,9 @@ public class Tower : MonoBehaviour
         Vector3 target = m_TopTower.eulerAngles;
         float next = Mathf.MoveTowardsAngle(current.y, target.y, 120 * Time.deltaTime);
         m_TopTower.eulerAngles = new Vector3(current.x, next, current.z);
-
     }
 
-     void Attack()
+      void Attack()
      {
          if (m_AttackEnemyTran == null || m_AttackEnemyTran.gameObject.GetComponent<Enemy>().m_ifDead)
          {
@@ -127,25 +193,19 @@ public class Tower : MonoBehaviour
          }
          //到了时间间隔
         //发射子弹
-         if(m_Rockets)
-         {
-             //Debug.Log("射击");
-            GameObject rockObj =  (GameObject)Instantiate(m_Rockets, m_ShootPos.position, m_TopTower.rotation);
-             //使子弹拥有和塔一样的攻击力
-          Bullet bullet =   rockObj.GetComponent<Bullet>();
-              bullet.m_AttackPower = m_AttackPower;
-              bullet.Shoot(m_AttackEnemyTran);
-             //如果是第一次的就销毁这次的子弹（为什么会发生？？？？？？？？？？？？？）
-             //if(m_shotTime == 0)
-             //{
-             //    Destroy(rockObj);
-             //    m_shotTime++;
-             //}
-            m_Timer = m_AttackTime;
-         }
+           Shoot();
      }
 
-  
+   
+    public virtual void Shoot()
+      {
+          //Debug.Log("射击");
+          GameObject rockObj = (GameObject)Instantiate(m_Rockets, m_ShootPos.position, m_TopTower.rotation);
+          //使子弹拥有和塔一样的攻击力
+          Bullet bullet = rockObj.GetComponent<Bullet>();
+          bullet.m_AttackPower = m_AttackPower;
+          bullet.Shoot(m_AttackEnemyTran);
+          m_Timer = m_AttackTime;
+      }
 
-  
 }

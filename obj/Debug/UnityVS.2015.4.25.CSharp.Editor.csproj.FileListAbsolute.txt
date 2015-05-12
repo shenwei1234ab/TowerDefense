@@ -1,0 +1,41 @@
+D:\unity\project\2015.4.25\obj\Debug\UnityVS.2015.4.25.CSharp.Editor.csprojResolveAssemblyReference.cache
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.pdb
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-UnityScript.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.UI.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityVS.VersionSpecific.dll
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.UI.xml
+D:\unity\project\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.xml
+D:\unity\project\2015.4.25\obj\Debug\Assembly-CSharp-Editor.dll
+D:\unity\project\2015.4.25\obj\Debug\Assembly-CSharp-Editor.pdb
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp-Editor.pdb
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-UnityScript-firstpass.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-UnityScript.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Bridge.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\SyntaxTree.VisualStudio.Unity.Messaging.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.UI.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityVS.VersionSpecific.dll
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.xml
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.xml
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.UI.xml
+E:\unity 3 project\TowerDefense\2015.4.25\Temp\UnityVS_bin\Debug\UnityEditor.Graphs.xml
+E:\unity 3 project\TowerDefense\2015.4.25\obj\Debug\UnityVS.2015.4.25.CSharp.Editor.csprojResolveAssemblyReference.cache
+E:\unity 3 project\TowerDefense\2015.4.25\obj\Debug\Assembly-CSharp-Editor.dll
+E:\unity 3 project\TowerDefense\2015.4.25\obj\Debug\Assembly-CSharp-Editor.pdb
