@@ -85,7 +85,6 @@ public class Bullet : MonoBehaviour
     //默认是使particleSystem消失
     public virtual void ParticleCompleteEvent(GameObject obj)
    {
-        
        //Debug.Log("Particle 消失");
        Destroy(obj);
    }

@@ -1,35 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
+//玩家按键的状态
+public enum PressStatus
+{
+    None,
+    PressCreateButton,
+    PressTower,
+}
 //游戏逻辑
 public class GameManager : MonoBehaviour 
 {
+    
     //particle system
     public GameObject m_BuildingEffect;
     public GameObject m_BuildingDoneEffect;
-
-
     //UI管理
-    public GameObject m_ui;
-    private UIManager m_uiManger;
-    //ui的升级面板
-    public GameObject m_uiTowerButtonPanel;
-    
-    
-    //升级面板离触摸点的偏移距离
-    public Vector3 m_uiTowerButtonOffset;
-    //初始位置
-    private Vector3 m_uiTowerButtonInitPos;
-
     //当前的金币
     public int m_curCoins = 10;
+
+
+    int nUiMask;
     int nTowerMask;
     int nTerrianMask;
     int nPlaneMask;
-    //是否选中了图标
-    private bool m_ifSelected = false;
-    private string m_SelectTowerName;
+
 
     //与地面的碰撞层
     public LayerMask m_groundLayer;
@@ -48,33 +43,12 @@ public class GameManager : MonoBehaviour
     //当前选中的塔(升级或者销毁)
     private Tower m_SelectTower= null;
 
+    //当前要选中的图标
+    private MyButton m_SelectButton = null;
+
     void Awake()
     {
         m_Instance = this;
-        //注册所有button点击事件
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
-        foreach(GameObject button in buttons)
-        {
-            //判断button的类型
-            switch (button.GetComponent<MyButton>().m_buttonType)
-            {
-                case ButtonType.CreateTower:
-                    UIEventListener.Get(button).onClick = CreateButtonOnClick;
-                    break;
-                case ButtonType.UpdateTower:
-                    UIEventListener.Get(button).onClick = UpdateButtonOnClick;
-                    break;
-                case ButtonType.DestoryTower:
-                    UIEventListener.Get(button).onClick = DestoryButtonOnClick;
-                    break;
-                case ButtonType.Exit:
-                    UIEventListener.Get(button).onClick = ExitButtonOnClick;
-                    //什么事都不做
-                    break;
-            }
-        }
-          //获取ui控件
-        m_uiManger = m_ui.GetComponent<UIManager>(); 
     }
 
 	void Start () 
@@ -83,11 +57,11 @@ public class GameManager : MonoBehaviour
         nTowerMask = LayerMask.GetMask("Tower");
          nTerrianMask = LayerMask.GetMask("BuildTower");
          nPlaneMask = LayerMask.GetMask("CanNotBuildTower");
+         nUiMask = LayerMask.GetMask("UI");
+
         //开始产生怪物
          GameObject enemyFactory = GameObject.Find("EnemyFactory");
          enemyFactory.GetComponent<EnemyFactory>().ifProductMonster = true;
-        //记录初始位置
-         m_uiTowerButtonInitPos = m_uiTowerButtonPanel.transform.position;
 	}
 	
     //当前的进攻波数
@@ -98,8 +72,7 @@ public class GameManager : MonoBehaviour
         {
             m_Wave = value;
             //在ui上显示
-            //m_uiWave.text = m_Wave.ToString();
-            m_uiManger.CurWave = m_Wave;
+            UIManager.Instance().CurWave = m_Wave;
 
         }
         get
@@ -115,8 +88,7 @@ public class GameManager : MonoBehaviour
        set
        {
            m_TotalWaves = value;
-           //在ui上显示
-           m_uiManger.TotalWaves = m_TotalWaves;
+           UIManager.Instance().TotalWaves = m_TotalWaves;
        }
         get
        {
@@ -145,24 +117,24 @@ public class GameManager : MonoBehaviour
            Ray ray = Camera.main.ScreenPointToRay(mousePos);
            //计算射线与地面的碰撞
            RaycastHit hit;
+           if (Physics.Raycast(ray, out hit, 100, nUiMask))
+           {
+               Debug.Log("nUiMask");
+               return;
+           }
+
            //如果点击到了tower
            if (Physics.Raycast(ray, out hit, 100, nTowerMask))
            {
+               Debug.Log("hit tower");
                m_SelectTower = hit.transform.gameObject.GetComponent<Tower>();
                //如果当前在建造就返回
                if(m_SelectTower.m_towerState == TowerState.Building )
                {
                    return;
                }
-               //目标点在主摄像机的位置
-               Vector3 viewPortPos = Camera.main.WorldToViewportPoint(hit.point);
-               viewPortPos.z = 0;
-               //在UI中的位置
-               Vector3 uiPos = UICamera.currentCamera.ViewportToWorldPoint(viewPortPos);
-               viewPortPos.z = 0;
-               //在触摸点产生UIPanel
-               m_uiTowerButtonPanel.transform.position = uiPos + m_uiTowerButtonOffset;    
-               m_uiTowerButtonPanel.SetActive(true);     
+               //显示面板
+               UIManager.Instance().ShowPanel(hit.point);  
            }
            //如果点击到了plane
            else if (Physics.Raycast(ray, out hit, 100, nPlaneMask))
@@ -174,22 +146,37 @@ public class GameManager : MonoBehaviour
            //如果点击到了terrian
            else if (Physics.Raycast(ray, out hit, 100, nTerrianMask))
            {
-               //如果未点击创建的图标或者金钱不够
-               if (!m_ifSelected)
+               Debug.Log("hit terrian");
+               //如果未点击
+               if (!m_SelectButton)
                {
                    return;
                }
+               string strKey = m_SelectButton.m_towerType.ToString() + "1";
                int hitPointX = (int)hit.point.x;
                int hitPointY = (int)hit.point.y;
                int hitPointZ = (int)hit.point.z;
+               Vector3 hitPos = new Vector3(hitPointX, hitPointY, hitPointZ);
+              //查找要创建的塔的价钱
+               TowerData newTowerDate = TowerFactory.GetInstance().FindTowerData(strKey);
+               int needCost = newTowerDate.m_Cost;
+               //金钱不够
+               if(m_curCoins < needCost)
+               {
+                   //产生提示
+                   UIManager.Instance().CreateWarning(hitPos,"金钱不够");
+                   m_SelectButton = null;
+                   return;
+               }
                //在指定的位置创建tower;
-               string strKey = m_SelectTowerName + "1";
-               Tower newTower = TowerFactory.GetInstance().ProduceTower(strKey, new Vector3(hitPointX, hitPointY, hitPointZ));
-               m_TowerList.Add(newTower);
-               m_ifSelected = false;
+               Tower newTower = TowerFactory.GetInstance().ProduceTower(m_SelectButton.m_towerType,1,hitPos);
+               m_TowerList.Add(newTower);             
+               //减少钱
+               Coins -= needCost;
+               m_SelectButton = null;
 
            }
-           else    //点击到了ui
+           else    
            {
                Debug.Log("hitOther");
                return;
@@ -217,13 +204,27 @@ public class GameManager : MonoBehaviour
     {
         m_curCoins += coins;
         //ui
-        m_uiManger.Coins = m_curCoins;
+        //m_uiManger.Coins = m_curCoins;
+        UIManager.Instance().Coins = m_curCoins;
     }
+
+
+
     public int Coins
     {
         get
         {
             return m_curCoins;
+        }
+        set
+        {
+            if(value < 0)
+            {
+                value = 0;
+            }
+            m_curCoins = value;
+            //m_uiManger.Coins = m_curCoins;
+            UIManager.Instance().Coins = m_curCoins;
         }
     }
 
@@ -236,9 +237,8 @@ public class GameManager : MonoBehaviour
         {
             m_Life = 0;
         }
-        //ui
-        //m_uiLife.text = m_Life.ToString();
-        m_uiManger.Life = m_Life;
+       // m_uiManger.Life = m_Life;
+        UIManager.Instance().Life = m_Life;
         if(m_Life == 0)
         {
             //GameOver;
@@ -249,11 +249,11 @@ public class GameManager : MonoBehaviour
     //鼠标事件 
     public void CreateButtonOnClick(GameObject button)
     {
-        MyButton pressButton = button.GetComponent<MyButton>();
-        m_SelectTowerName = pressButton.m_towerType.ToString();
+        //
+        Debug.Log("Create ButtonClick");
+        m_SelectButton = button.GetComponent<MyButton>();
         //高亮
         //////////////////////////////////////////////////////////////////////todo
-        m_ifSelected = true;
     }
 
     public void UpdateButtonOnClick(GameObject button)
@@ -263,32 +263,37 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+        Vector3 towerPos = m_SelectTower.gameObject.transform.position;
         //当前是最大等级
         int curLevel= m_SelectTower.m_curLevel;
         if (curLevel >= m_SelectTower.m_maxLevel)
         {
-            Debug.Log("当前是最大等级");
+            UIManager.Instance().CreateWarning(towerPos, "当前是最大等级");
             //ui显示
             return;
         }
         int nextLevel = m_SelectTower.m_curLevel + 1;
-        //获得下一等级Tower对象
-        TowerData newData = DataBase.GetInstance().m_TowerDatas[m_SelectTower.m_towerName + nextLevel.ToString()];
-        if(newData!=null)
+        string key = m_SelectTower.m_towerType + nextLevel.ToString();
+        //查找要创建的塔的价钱
+        TowerData newTowerDate = TowerFactory.GetInstance().FindTowerData(key);
+        int needCost = newTowerDate.m_Cost;
+        //金钱不够
+        if (m_curCoins < needCost)
         {
-            Debug.LogError("没有");
+            //产生提示
+            UIManager.Instance().CreateWarning(towerPos, "金钱不够");
+            UIManager.Instance().HidPanel();
             return;
         }
-        //如果金钱不够
-        if (newData.m_Cost > Coins)
-        {
-            Debug.LogError("金钱不够");
-            return;
-        }
-        //删除原来的模型
-        Destroy(m_SelectTower);
-        //在指定的位置创建新的tower
-
+        //在指定的位置创建tower;
+        Tower newTower = TowerFactory.GetInstance().ProduceTower(m_SelectTower.m_towerType, nextLevel, towerPos);
+        m_TowerList.Add(newTower);
+        //减少钱
+        Coins -= needCost;
+        //销毁原来的塔
+        Destroy(m_SelectTower.gameObject);
+        //隐藏uipanel
+        UIManager.Instance().HidPanel();
     }
 
 
@@ -301,14 +306,13 @@ public class GameManager : MonoBehaviour
         //销毁塔
         Destroy(m_SelectTower.gameObject);
         m_SelectTower = null;
-        //ui回到初始位置
-        m_uiTowerButtonPanel.transform.position = m_uiTowerButtonInitPos;
+        UIManager.Instance().HidPanel();
     }
 
     public void ExitButtonOnClick(GameObject button)
     {
         //ui回到初始位置
-        m_uiTowerButtonPanel.transform.position = m_uiTowerButtonInitPos;
+        UIManager.Instance().HidPanel();
     }
 
 

@@ -46,6 +46,8 @@ public class Tower : MonoBehaviour
 
     [HideInInspector]
     public string m_towerName;
+
+    public TowerType m_towerType;
     //最大等级
     public int m_maxLevel = 3;
     //当前等级
@@ -80,15 +82,12 @@ public class Tower : MonoBehaviour
         m_towerState = TowerState.Building;
         //创建ProcessBar并注册事件
         GameObject newBar= Resources.LoadAssetAtPath<GameObject>(m_processPrebFilePath);
-        GameObject processBar = (GameObject)GameObject.Instantiate(newBar);
-        //添加到ui 中
-        processBar.transform.parent = UICamera.currentCamera.transform;
-        processBar.transform.localScale = new Vector3(1, 1, 1);
         if (!m_processBarPos)
         {
             m_processBarPos = this.transform;
         }
-        processBar.transform.position = UIManager.WorldPosToUI(m_processBarPos.position);
+        //GameObject processBar = UIManager.CreateObjInUI(m_processBarPos.position, newBar);
+        GameObject processBar = UIManager.Instance().CreateObjInUI(m_processBarPos.position, newBar);
         //注册事件
         processBar.GetComponent<ProcessBar>().m_timeOverEvent += BuildComplete;
 	}

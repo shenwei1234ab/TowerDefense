@@ -225,15 +225,16 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\Script\Bullet.cs" />
+    <Compile Include="Assets\Script\ButtonTest.cs" />
     <Compile Include="Assets\Script\DataBase.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\EnemyFactory.cs" />
-    <Compile Include="Assets\Script\Explosion.cs" />
     <Compile Include="Assets\Script\Fire.cs" />
     <Compile Include="Assets\Script\FireTower.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\GameSetting.cs" />
     <Compile Include="Assets\Script\GatlinTower.cs" />
+    <Compile Include="Assets\Script\InputSystem.cs" />
     <Compile Include="Assets\Script\Laser.cs" />
     <Compile Include="Assets\Script\LaserRender.cs" />
     <Compile Include="Assets\Script\MyButton.cs" />
@@ -250,6 +251,7 @@
     <Compile Include="Assets\Script\TowerFactory.cs" />
     <Compile Include="Assets\Script\UI\ItemManger.cs" />
     <Compile Include="Assets\Script\UI\MyDragDropItem.cs" />
+    <Compile Include="Assets\Script\UI\UiWarning.cs" />
     <Compile Include="Assets\Script\UIManager.cs" />
     <Compile Include="Assets\XML\Mono.Xml\MiniParser.cs" />
     <Compile Include="Assets\XML\Mono.Xml\SecurityParser.cs" />
