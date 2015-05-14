@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public GameObject m_processBarPreb;
 
 
+    EnemyFactory m_enemyFactory;
     //当前选中的塔(升级或者销毁)
    // private Tower m_SelectTower= null;
 
@@ -45,8 +46,15 @@ public class GameManager : MonoBehaviour
     {
         //开始产生怪物
          GameObject enemyFactory = GameObject.Find("EnemyFactory");
-         enemyFactory.GetComponent<EnemyFactory>().ifProductMonster = true;
+        m_enemyFactory =  enemyFactory.GetComponent<EnemyFactory>();
+        ProductEnemy(true);
 	}
+
+
+    public void ProductEnemy(bool control)
+    {
+        m_enemyFactory.ifProductMonster = control;
+    }
 	
     //当前的进攻波数
    private  int m_Wave=1;

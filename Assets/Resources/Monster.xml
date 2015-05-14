@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Root>
-	<table Enemyname="orc" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab"/>
-	<table Enemyname="orc" Level="2" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab"/>
-	<table Enemyname="ghost" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab"/>
-	<table Enemyname="ghost" Level="2" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab"/>
-	<table Enemyname="dragon" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab"/>
-	<table Enemyname="dragon" Level="2" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab"/>
-	<table Enemyname="mummy" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab"/>
-	<table Enemyname="mummy" Level="2" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab"/>
-	<table Enemyname="skeleton" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab"/>
-	<table Enemyname="skeleton" Level="2" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab"/>
-	<table Enemyname="zombie" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab"/>
-	<table Enemyname="zombie" Level="2" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab"/>
-	<table Enemyname="werewolf" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
-	<table Enemyname="werewolf" Level="2" Speed="1" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
-	<table Enemyname="boss_dragon" Level="1" Speed="1" Life="500" Defenese="4" GetCoin="6" Damage="40" PrefabPath="Boss/Boss_Dragon/dragon.FBX"/>
+	<table Enemyname="orc" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab"/>
+	<table Enemyname="orc" Level="2" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab"/>
+	<table Enemyname="ghost" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab"/>
+	<table Enemyname="ghost" Level="2" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab"/>
+	<table Enemyname="dragon" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab"/>
+	<table Enemyname="dragon" Level="2" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab"/>
+	<table Enemyname="mummy" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab"/>
+	<table Enemyname="mummy" Level="2" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab"/>
+	<table Enemyname="skeleton" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab"/>
+	<table Enemyname="skeleton" Level="2" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab"/>
+	<table Enemyname="zombie" Level="1" Speed="1.5" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab"/>
+	<table Enemyname="zombie" Level="2" Speed="1.5" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab"/>
+	<table Enemyname="werewolf" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
+	<table Enemyname="werewolf" Level="2" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
+	<table Enemyname="boss_dragon" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="6" Damage="40" PrefabPath="Boss/dragon.FBX"/>
 </Root>

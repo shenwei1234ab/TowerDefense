@@ -8,6 +8,7 @@ using System.Security;
 
 public class EnemyFactory : MonoBehaviour 
 {
+
     //序列号
     int m_Index = 0;
 
@@ -126,7 +127,9 @@ public class EnemyFactory : MonoBehaviour
                 if(currWave == GameManager.GetInstance().nTotalWaves)
                 {
                     ///////////////////////////播放boss来了的动画
-                   // 。。。。。。。。。。。。。。。。。。。
+                    UIManager.Instance().ShowLastWave();
+                    //停止出兵直到动画播放完成
+                    m_ifProductMonster = false;
                 }
                 m_ifWaiting = false;
             }

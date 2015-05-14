@@ -3,27 +3,25 @@ using System.Collections;
 
 public class Test : MonoBehaviour 
 {
-    
+    BoxCollider m_box;
 	// Use this for initialization
 	void Start () 
     {
-	     UIEventListener.Get(this.gameObject).onClick = OnClick;
-        UIEventListener.Get(this.gameObject).onHover = OnButtonHoverOn;
+        m_box = gameObject.GetComponent<BoxCollider>();
+        
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-	
+	    if(Input.GetMouseButtonDown(0))
+        {
+            m_box.enabled = false;
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            m_box.enabled = true;
+        }
 	}
-    void OnClick(GameObject obj)
-    {
-        Debug.Log("OnClick");
-    }
-
-    void OnButtonHoverOn(GameObject obj, bool state)
-    {
-        Debug.Log("Hover" + obj);
-        Debug.Log("state" + state);
-    }
+   
 }

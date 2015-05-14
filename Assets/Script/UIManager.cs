@@ -23,13 +23,12 @@ public class UIManager : MonoBehaviour
     //ui
     public UILabel m_uiWave;
     public UILabel m_uiTotalWave;
-
     public UILabel m_uiLife;
     public UILabel m_uiCoin;
-
-
+    public UILabel m_uiLastWave;
+    public float m_tweenTime = 4.0f;
     public GameObject m_uiWaringPreb;
-
+    
 
     public int CurWave
     {
@@ -64,9 +63,7 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        m_instance = this;
-
-      
+        m_instance = this; 
     }
 
    
@@ -76,8 +73,21 @@ public class UIManager : MonoBehaviour
     {
         ////记录初始位置
          m_uiTowerButtonInitPos = m_uiTowerButtonPanel.transform.position;
+        //等待动画完成开始出最后一波
+         m_tweenTime = m_uiLastWave.GetComponent<TweenAlpha>().duration * 2;
+        
+
+         //m_uiLastWave.gameObject.SetActive(false);
 	}
 
+
+    IEnumerator LastWaveStart()
+    {
+        yield return new WaitForSeconds(m_tweenTime);
+        Destroy(m_uiLastWave.gameObject);
+        //开始出兵
+        GameManager.GetInstance().ProductEnemy(true);
+    }
 
 
     public void ShowPanel(Vector3 worldPos)
@@ -144,6 +154,11 @@ public class UIManager : MonoBehaviour
         uiWarning.m_showMessage = strMessage;
     }
 
-
+    //开始播放最后一波动画
+    public void ShowLastWave()
+    {
+        m_uiLastWave.gameObject.SetActive(true);
+        StartCoroutine("LastWaveStart");
+    }
 
 }
