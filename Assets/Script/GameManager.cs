@@ -41,24 +41,18 @@ public class GameManager : MonoBehaviour
 
 
     //当前选中的塔(升级或者销毁)
-    private Tower m_SelectTower= null;
+   // private Tower m_SelectTower= null;
 
     //当前要选中的图标
-    private MyButton m_SelectButton = null;
+    //private MyButton m_SelectButton = null;
 
     void Awake()
-    {
+    {  ////注册所有ui事件
         m_Instance = this;
     }
 
 	void Start () 
     {
-        //获得碰撞掩码
-        nTowerMask = LayerMask.GetMask("Tower");
-         nTerrianMask = LayerMask.GetMask("BuildTower");
-         nPlaneMask = LayerMask.GetMask("CanNotBuildTower");
-         nUiMask = LayerMask.GetMask("UI");
-
         //开始产生怪物
          GameObject enemyFactory = GameObject.Find("EnemyFactory");
          enemyFactory.GetComponent<EnemyFactory>().ifProductMonster = true;
@@ -97,94 +91,135 @@ public class GameManager : MonoBehaviour
    }
 
 
-
-
+   
 
 	// Update is called once per frame
 	void Update () 
     {
-        //鼠标事件
-       if(m_Life<=0)
-       {
-           return;
-       }
-        //鼠标按下
-       if(Input.GetMouseButtonDown(0))
-       {
-           //判断点击到了哪里
-           Vector3 mousePos = Input.mousePosition;
-           //创建一条从摄像机射出的射线
-           Ray ray = Camera.main.ScreenPointToRay(mousePos);
-           //计算射线与地面的碰撞
-           RaycastHit hit;
-           if (Physics.Raycast(ray, out hit, 100, nUiMask))
-           {
-               Debug.Log("nUiMask");
-               return;
-           }
+       // //鼠标事件
+       //if(m_Life<=0)
+       //{
+       //    return;
+       //}
+       // //鼠标按下
+       //if(Input.GetMouseButtonDown(0))
+       //{
+       //    //判断点击到了哪里
+       //    Vector3 mousePos = Input.mousePosition;
+       //    //创建一条从摄像机射出的射线
+       //    Ray ray = Camera.main.ScreenPointToRay(mousePos);
+       //    //计算射线与地面的碰撞
+       //    RaycastHit hit;
+       //    if (Physics.Raycast(ray, out hit, 100, nUiMask))
+       //    {
+       //        Debug.Log("nUiMask");
+       //        return;
+       //    }
 
-           //如果点击到了tower
-           if (Physics.Raycast(ray, out hit, 100, nTowerMask))
-           {
-               Debug.Log("hit tower");
-               m_SelectTower = hit.transform.gameObject.GetComponent<Tower>();
-               //如果当前在建造就返回
-               if(m_SelectTower.m_towerState == TowerState.Building )
-               {
-                   return;
-               }
-               //显示面板
-               UIManager.Instance().ShowPanel(hit.point);  
-           }
-           //如果点击到了plane
-           else if (Physics.Raycast(ray, out hit, 100, nPlaneMask))
-           {
-               Debug.Log("hit Plane");
-               //不能造房子
-               return;
-           }
-           //如果点击到了terrian
-           else if (Physics.Raycast(ray, out hit, 100, nTerrianMask))
-           {
-               Debug.Log("hit terrian");
-               //如果未点击
-               if (!m_SelectButton)
-               {
-                   return;
-               }
-               string strKey = m_SelectButton.m_towerType.ToString() + "1";
-               int hitPointX = (int)hit.point.x;
-               int hitPointY = (int)hit.point.y;
-               int hitPointZ = (int)hit.point.z;
-               Vector3 hitPos = new Vector3(hitPointX, hitPointY, hitPointZ);
-              //查找要创建的塔的价钱
-               TowerData newTowerDate = TowerFactory.GetInstance().FindTowerData(strKey);
-               int needCost = newTowerDate.m_Cost;
-               //金钱不够
-               if(m_curCoins < needCost)
-               {
-                   //产生提示
-                   UIManager.Instance().CreateWarning(hitPos,"金钱不够");
-                   m_SelectButton = null;
-                   return;
-               }
-               //在指定的位置创建tower;
-               Tower newTower = TowerFactory.GetInstance().ProduceTower(m_SelectButton.m_towerType,1,hitPos);
-               m_TowerList.Add(newTower);             
-               //减少钱
-               Coins -= needCost;
-               m_SelectButton = null;
+       //    //如果点击到了tower
+       //    if (Physics.Raycast(ray, out hit, 100, nTowerMask))
+       //    {
+       //        Debug.Log("hit tower");
+       //        m_SelectTower = hit.transform.gameObject.GetComponent<Tower>();
+       //        //如果当前在建造就返回
+       //        if(m_SelectTower.m_towerState == TowerState.Building )
+       //        {
+       //            return;
+       //        }
+       //        //显示面板
+       //        UIManager.Instance().ShowPanel(hit.point);  
+       //    }
+       //    //如果点击到了plane
+       //    else if (Physics.Raycast(ray, out hit, 100, nPlaneMask))
+       //    {
+       //        Debug.Log("hit Plane");
+       //        //不能造房子
+       //        return;
+       //    }
+       //    //如果点击到了terrian
+       //    else if (Physics.Raycast(ray, out hit, 100, nTerrianMask))
+       //    {
+       //        Debug.Log("hit terrian");
+       //        //如果未点击
+       //        if (!m_SelectButton)
+       //        {
+       //            return;
+       //        }
+       //        string strKey = m_SelectButton.m_towerType.ToString() + "1";
+       //        int hitPointX = (int)hit.point.x;
+       //        int hitPointY = (int)hit.point.y;
+       //        int hitPointZ = (int)hit.point.z;
+       //        Vector3 hitPos = new Vector3(hitPointX, hitPointY, hitPointZ);
+       //       //查找要创建的塔的价钱
+       //        TowerData newTowerDate = TowerFactory.GetInstance().FindTowerData(strKey);
+       //        int needCost = newTowerDate.m_Cost;
+       //        //金钱不够
+       //        if(m_curCoins < needCost)
+       //        {
+       //            //产生提示
+       //            UIManager.Instance().CreateWarning(hitPos,"金钱不够");
+       //            m_SelectButton = null;
+       //            return;
+       //        }
+       //        //在指定的位置创建tower;
+       //        Tower newTower = TowerFactory.GetInstance().ProduceTower(m_SelectButton.m_towerType,1,hitPos);
+       //        m_TowerList.Add(newTower);             
+       //        //减少钱
+       //        Coins -= needCost;
+       //        m_SelectButton = null;
 
-           }
-           else    
-           {
-               Debug.Log("hitOther");
-               return;
-           }
-       }
+       //    }
+       //    else    
+       //    {
+       //        Debug.Log("hitOther");
+       //        return;
+       //    }
+       //}
 	}
 
+    //在场景中点击到了塔的模型
+    public void HitTower(Tower hitTower,Vector3 hitPoint)
+    {
+        //正在建
+        if(hitTower.m_towerState == TowerState.Building)
+        {
+            return;
+        }
+        //否则面板显示 
+        else
+        {
+            UIManager.Instance().ShowPanel(hitPoint);  
+        }
+    }
+    
+    public void HitPlane()
+    {
+        
+    }
 
+
+    public bool CreateTower(Vector3 hitPos,TowerType towerType)
+    {
+        string strKey = towerType.ToString() + "1";
+          //查找要创建的塔的价钱
+          TowerData newTowerDate = TowerFactory.GetInstance().FindTowerData(strKey);
+          int needCost = newTowerDate.m_Cost;
+          //金钱不够
+          if (m_curCoins < needCost)
+          {
+              //产生提示
+              UIManager.Instance().CreateWarning(hitPos, "金钱不够");
+              return false;
+          }
+          //在指定的位置创建tower;
+          Tower newTower = TowerFactory.GetInstance().ProduceTower(towerType, 1, hitPos);
+          m_TowerList.Add(newTower);
+          //减少钱
+          Coins -= needCost;
+          return true;
+    }
+
+   
     //在指定位置创建粒子动画
     GameObject CreateParticleSystem(GameObject particlePreb,Vector3 crePos)
     {
@@ -247,33 +282,20 @@ public class GameManager : MonoBehaviour
 
     #region     回调事件
     //鼠标事件 
-    public void CreateButtonOnClick(GameObject button)
-    {
-        //
-        Debug.Log("Create ButtonClick");
-        m_SelectButton = button.GetComponent<MyButton>();
-        //高亮
-        //////////////////////////////////////////////////////////////////////todo
-    }
 
-    public void UpdateButtonOnClick(GameObject button)
+    public bool UpdateTower(Tower selectTower)
     {
-        //升级塔 
-        if(!m_SelectTower)
-        {
-            return;
-        }
-        Vector3 towerPos = m_SelectTower.gameObject.transform.position;
+        Vector3 towerPos = selectTower.gameObject.transform.position;
         //当前是最大等级
-        int curLevel= m_SelectTower.m_curLevel;
-        if (curLevel >= m_SelectTower.m_maxLevel)
+        int curLevel = selectTower.m_curLevel;
+        if (curLevel >= selectTower.m_maxLevel)
         {
             UIManager.Instance().CreateWarning(towerPos, "当前是最大等级");
             //ui显示
-            return;
+            return false;
         }
-        int nextLevel = m_SelectTower.m_curLevel + 1;
-        string key = m_SelectTower.m_towerType + nextLevel.ToString();
+        int nextLevel = selectTower.m_curLevel + 1;
+        string key = selectTower.m_towerType + nextLevel.ToString();
         //查找要创建的塔的价钱
         TowerData newTowerDate = TowerFactory.GetInstance().FindTowerData(key);
         int needCost = newTowerDate.m_Cost;
@@ -283,37 +305,29 @@ public class GameManager : MonoBehaviour
             //产生提示
             UIManager.Instance().CreateWarning(towerPos, "金钱不够");
             UIManager.Instance().HidPanel();
-            return;
+            return false;
         }
         //在指定的位置创建tower;
-        Tower newTower = TowerFactory.GetInstance().ProduceTower(m_SelectTower.m_towerType, nextLevel, towerPos);
+        Tower newTower = TowerFactory.GetInstance().ProduceTower(selectTower.m_towerType, nextLevel, towerPos);
         m_TowerList.Add(newTower);
         //减少钱
         Coins -= needCost;
         //销毁原来的塔
-        Destroy(m_SelectTower.gameObject);
+        Destroy(selectTower.gameObject);
         //隐藏uipanel
         UIManager.Instance().HidPanel();
+        return true;
     }
 
 
-    public void DestoryButtonOnClick(GameObject button)
+    public void DestoryTower(Tower selectTower)
     {
-        if (!m_SelectTower)
-        {
-            return;
-        }
         //销毁塔
-        Destroy(m_SelectTower.gameObject);
-        m_SelectTower = null;
+        Destroy(selectTower.gameObject);
         UIManager.Instance().HidPanel();
     }
 
-    public void ExitButtonOnClick(GameObject button)
-    {
-        //ui回到初始位置
-        UIManager.Instance().HidPanel();
-    }
+
 
 
     //建造粒子动画完成后执行的动作 

@@ -68,7 +68,7 @@ public class Tower : MonoBehaviour
 
 
     //进度条
-    public GameObject m_processBar;
+     GameObject m_processBar;
     public Transform m_processBarPos;
     
    
@@ -87,9 +87,9 @@ public class Tower : MonoBehaviour
             m_processBarPos = this.transform;
         }
         //GameObject processBar = UIManager.CreateObjInUI(m_processBarPos.position, newBar);
-        GameObject processBar = UIManager.Instance().CreateObjInUI(m_processBarPos.position, newBar);
+        m_processBar = UIManager.Instance().CreateObjInUI(m_processBarPos.position, newBar);
         //注册事件
-        processBar.GetComponent<ProcessBar>().m_timeOverEvent += BuildComplete;
+        m_processBar.GetComponent<ProcessBar>().m_timeOverEvent += BuildComplete;
 	}
 
 

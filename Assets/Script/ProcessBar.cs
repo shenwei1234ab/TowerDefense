@@ -24,6 +24,7 @@ public class ProcessBar : MonoBehaviour
     {
 	    if(m_timer <= 0)
         {
+
             //到时间了,通知注册者
              m_timeOverEvent(this.gameObject);
         }
