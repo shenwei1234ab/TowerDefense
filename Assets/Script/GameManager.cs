@@ -1,13 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//玩家按键的状态
-public enum PressStatus
-{
-    None,
-    PressCreateButton,
-    PressTower,
-}
+
 //游戏逻辑
 public class GameManager : MonoBehaviour 
 {
@@ -20,10 +14,6 @@ public class GameManager : MonoBehaviour
     public int m_curCoins = 10;
 
 
-    int nUiMask;
-    int nTowerMask;
-    int nTerrianMask;
-    int nPlaneMask;
 
 
     //与地面的碰撞层
@@ -96,85 +86,7 @@ public class GameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-       // //鼠标事件
-       //if(m_Life<=0)
-       //{
-       //    return;
-       //}
-       // //鼠标按下
-       //if(Input.GetMouseButtonDown(0))
-       //{
-       //    //判断点击到了哪里
-       //    Vector3 mousePos = Input.mousePosition;
-       //    //创建一条从摄像机射出的射线
-       //    Ray ray = Camera.main.ScreenPointToRay(mousePos);
-       //    //计算射线与地面的碰撞
-       //    RaycastHit hit;
-       //    if (Physics.Raycast(ray, out hit, 100, nUiMask))
-       //    {
-       //        Debug.Log("nUiMask");
-       //        return;
-       //    }
-
-       //    //如果点击到了tower
-       //    if (Physics.Raycast(ray, out hit, 100, nTowerMask))
-       //    {
-       //        Debug.Log("hit tower");
-       //        m_SelectTower = hit.transform.gameObject.GetComponent<Tower>();
-       //        //如果当前在建造就返回
-       //        if(m_SelectTower.m_towerState == TowerState.Building )
-       //        {
-       //            return;
-       //        }
-       //        //显示面板
-       //        UIManager.Instance().ShowPanel(hit.point);  
-       //    }
-       //    //如果点击到了plane
-       //    else if (Physics.Raycast(ray, out hit, 100, nPlaneMask))
-       //    {
-       //        Debug.Log("hit Plane");
-       //        //不能造房子
-       //        return;
-       //    }
-       //    //如果点击到了terrian
-       //    else if (Physics.Raycast(ray, out hit, 100, nTerrianMask))
-       //    {
-       //        Debug.Log("hit terrian");
-       //        //如果未点击
-       //        if (!m_SelectButton)
-       //        {
-       //            return;
-       //        }
-       //        string strKey = m_SelectButton.m_towerType.ToString() + "1";
-       //        int hitPointX = (int)hit.point.x;
-       //        int hitPointY = (int)hit.point.y;
-       //        int hitPointZ = (int)hit.point.z;
-       //        Vector3 hitPos = new Vector3(hitPointX, hitPointY, hitPointZ);
-       //       //查找要创建的塔的价钱
-       //        TowerData newTowerDate = TowerFactory.GetInstance().FindTowerData(strKey);
-       //        int needCost = newTowerDate.m_Cost;
-       //        //金钱不够
-       //        if(m_curCoins < needCost)
-       //        {
-       //            //产生提示
-       //            UIManager.Instance().CreateWarning(hitPos,"金钱不够");
-       //            m_SelectButton = null;
-       //            return;
-       //        }
-       //        //在指定的位置创建tower;
-       //        Tower newTower = TowerFactory.GetInstance().ProduceTower(m_SelectButton.m_towerType,1,hitPos);
-       //        m_TowerList.Add(newTower);             
-       //        //减少钱
-       //        Coins -= needCost;
-       //        m_SelectButton = null;
-
-       //    }
-       //    else    
-       //    {
-       //        Debug.Log("hitOther");
-       //        return;
-       //    }
-       //}
+        
 	}
 
     //在场景中点击到了塔的模型
@@ -280,8 +192,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    #region     回调事件
-    //鼠标事件 
+
 
     public bool UpdateTower(Tower selectTower)
     {
@@ -329,7 +240,6 @@ public class GameManager : MonoBehaviour
 
 
 
-
     //建造粒子动画完成后执行的动作 
     //void BuildingEffectCompleteEvent(GameObject obj)
     //{
@@ -347,8 +257,6 @@ public class GameManager : MonoBehaviour
     //    m_TowerList.Add(newTower);
     //    m_ifSelected = false;
     //}
-    #endregion
-
 
    
 }

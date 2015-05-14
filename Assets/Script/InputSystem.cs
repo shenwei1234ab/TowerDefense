@@ -7,13 +7,21 @@ using System.Collections;
 public class InputSystem : MonoBehaviour 
 {
    
-   [HideInInspector]
+   
     //当前选中的tower
     Tower m_selectTower;
+    [HideInInspector]
     //当前要选中的图标
     public MyButton m_selectButton = null;
     [HideInInspector]
-    public MyButton m_hoverButton = null;
+    //public MyButton m_hoverButton = null;
+    enum MousePosition
+    {
+        HoverInUI,
+        HoverInScene,
+    }
+    MousePosition m_mousePos;
+
 
     private static InputSystem m_instance;
     public static InputSystem Instance()
@@ -24,6 +32,16 @@ public class InputSystem : MonoBehaviour
     int nTowerMask;
     int nTerrianMask;
     int nPlaneMask;
+
+
+
+    //enum PressStatus
+    //{
+    //    None,
+    //    PressedCreateButton,
+    //    PressedTower,
+    //}
+    //PressStatus m_pressStatus;
 
     void Awake()
     {
@@ -56,7 +74,8 @@ public class InputSystem : MonoBehaviour
 	// Use this for initialization
 	void Start () 
     {
-      
+       // m_pressStatus = PressStatus.None;
+        m_mousePos = MousePosition.HoverInScene;
 	}
 	
 	// Update is called once per frame
@@ -64,7 +83,7 @@ public class InputSystem : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            if (m_hoverButton)
+            if (m_mousePos == MousePosition.HoverInUI)
             {
                 //在ui中
                 return;
@@ -83,13 +102,13 @@ public class InputSystem : MonoBehaviour
                         //如果点击到了tower
                         if(tag.CompareTo("Tower") == 0)
                         {
-                            if(m_selectButton != null)
+                            //如果之前点击了UIcreateButton
+                            if(m_selectButton)
                             {
+                                m_selectButton.NotSelected();
                                 m_selectButton = null;
-                                
-                                //高亮取消
-                               // ............
                             }
+                            //开启升级,销毁面板
                             m_selectTower = hit.transform.gameObject.GetComponent<Tower>();
                             GameManager.GetInstance().HitTower(m_selectTower, hit.point);
                             return;
@@ -97,14 +116,23 @@ public class InputSystem : MonoBehaviour
                         //如果点击到了plane
                         else if(tag.CompareTo("Plane") ==0)
                         {
+                            if(m_selectTower)
+                            {
+                                UIManager.Instance().HidPanel();
+                                m_selectTower = null;
+                            }
                             //不能建造塔 
                             return;
                         }
                         else if(tag.CompareTo("Terrian") == 0)
-                        {
-                            if(!m_selectButton)
+                        {                          
+                            if (m_selectTower )
                             {
-                                //没有选中createbutton
+                                UIManager.Instance().HidPanel();
+                                m_selectTower = null;
+                            }
+                            if (!m_selectButton)
+                            {
                                 return;
                             }
                             //选中了就建造塔
@@ -113,11 +141,17 @@ public class InputSystem : MonoBehaviour
                             int hitPointZ = (int)hit.point.z;
                             Vector3 hitPos = new Vector3(hitPointX, hitPointY, hitPointZ);
                             GameManager.GetInstance().CreateTower(hitPos, m_selectButton.m_towerType);
+                            m_selectButton.NotSelected();
                             m_selectButton = null;
                             return;
                         }
                         else
                         {
+                            //if (m_selectTower)
+                            //{
+                            //    UIManager.Instance().HidPanel();
+                            //    m_selectTower = null;
+                            //}
                             Debug.Log("hit other");
                         }
                     }
@@ -131,7 +165,14 @@ public class InputSystem : MonoBehaviour
     //点击到了ui
     void CreateButtonOnClick(GameObject button)
     {
+        //之前已经选中了
+        if(m_selectButton)
+        {
+            m_selectButton.NotSelected();
+            m_selectButton = null;
+        }
         m_selectButton = button.GetComponent<MyButton>();
+        m_selectButton.Selected();
     }
 
     void UpdateButtonOnClick(GameObject button)
@@ -167,11 +208,13 @@ public class InputSystem : MonoBehaviour
    {
        if(state)
        {
-           m_hoverButton = button.GetComponent<MyButton>();     
+           //m_hoverButton = button.GetComponent<MyButton>();
+           m_mousePos = MousePosition.HoverInUI;
        }
        else
        {
-           m_hoverButton = null;
+           //m_hoverButton = null;
+           m_mousePos = MousePosition.HoverInScene;
        }
    }
 }

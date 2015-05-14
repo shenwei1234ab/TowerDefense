@@ -15,6 +15,7 @@ public class MyButton : MonoBehaviour
     public ButtonType m_buttonType;
     // Use this for initialization
 
+    public GameObject m_highLightBorder;
 
     void Awake()
     {
@@ -32,5 +33,15 @@ public class MyButton : MonoBehaviour
     }
 
 
+    public void Selected()
+    {
+        m_highLightBorder.SetActive(true);
+    }
+
+
+    public void NotSelected()
+    {
+        m_highLightBorder.SetActive(false);
+    }
  
 }
