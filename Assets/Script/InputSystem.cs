@@ -8,6 +8,7 @@ public class InputSystem : MonoBehaviour
 {
    
    [HideInInspector]
+    //当前选中的tower
     Tower m_selectTower;
     //当前要选中的图标
     public MyButton m_selectButton = null;
@@ -85,6 +86,9 @@ public class InputSystem : MonoBehaviour
                             if(m_selectButton != null)
                             {
                                 m_selectButton = null;
+                                
+                                //高亮取消
+                               // ............
                             }
                             m_selectTower = hit.transform.gameObject.GetComponent<Tower>();
                             GameManager.GetInstance().HitTower(m_selectTower, hit.point);
