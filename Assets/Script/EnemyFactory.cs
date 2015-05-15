@@ -9,6 +9,13 @@ using System.Security;
 public class EnemyFactory : MonoBehaviour 
 {
 
+    enum WaveState
+    {
+        NormalWave,
+        LastWave,
+        NoWave,
+    }
+    WaveState m_waveState;
     //序列号
     int m_Index = 0;
 
@@ -62,6 +69,7 @@ public class EnemyFactory : MonoBehaviour
         //获得第一个敌人
         EnemyData data = (EnemyData)m_EnemyDataList[m_Index];
         m_Timer = data.m_Wait;
+        m_waveState = WaveState.NormalWave;
 	}
 
 
@@ -123,13 +131,14 @@ public class EnemyFactory : MonoBehaviour
                 // 获取当前波数
                 int currWave = ((EnemyData)m_EnemyDataList[m_Index]).m_Wave;
                 GameManager.GetInstance().CurrentWave = currWave;
-                //如果是最后一波
-                if(currWave == GameManager.GetInstance().nTotalWaves)
+                //最后一波开始了
+                if(currWave == GameManager.GetInstance().nTotalWaves && m_waveState==WaveState.NormalWave)
                 {
                     ///////////////////////////播放boss来了的动画
                     UIManager.Instance().ShowLastWave();
                     //停止出兵直到动画播放完成
                     m_ifProductMonster = false;
+                    m_waveState = WaveState.LastWave;
                 }
                 m_ifWaiting = false;
             }
@@ -160,15 +169,15 @@ public class EnemyFactory : MonoBehaviour
             enemyComponet.m_enemyCoin = enemyData.enemyCoin;
             //加入到场景的容器中
             GameManager.GetInstance().m_EnemyList.Add(enemyComponet);
-
-         
         }
         //准备读取下一条记录
         //如果当前是最后一条记录
         if (m_Index >= m_EnemyDataList.Count-1)
         {
+            m_waveState = WaveState.NoWave;
             //不再产生怪物
             m_ifProductMonster = false;
+            Debug.Log("Last Enemy");
             return;
         }
         ++m_Index;

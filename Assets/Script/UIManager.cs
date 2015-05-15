@@ -75,9 +75,6 @@ public class UIManager : MonoBehaviour
          m_uiTowerButtonInitPos = m_uiTowerButtonPanel.transform.position;
         //等待动画完成开始出最后一波
          m_tweenTime = m_uiLastWave.GetComponent<TweenAlpha>().duration * 2;
-        
-
-         //m_uiLastWave.gameObject.SetActive(false);
 	}
 
 

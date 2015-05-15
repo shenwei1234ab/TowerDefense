@@ -266,5 +266,19 @@ public class GameManager : MonoBehaviour
     //    m_ifSelected = false;
     //}
 
+
+
+    //基地生命为0
+    public void GameOver()
+    {
+
+    }
+
+
+    //所有的敌人都消灭了
+    public void GameEnd()
+    {
+
+    }
    
 }

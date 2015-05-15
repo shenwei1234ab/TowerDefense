@@ -14,5 +14,5 @@
 	<table Enemyname="zombie" Level="2" Speed="1.5" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab"/>
 	<table Enemyname="werewolf" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
 	<table Enemyname="werewolf" Level="2" Speed="2" Life="500" Defenese="4" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
-	<table Enemyname="boss_dragon" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="6" Damage="40" PrefabPath="Boss/dragon.FBX"/>
+	<table Enemyname="boss_dragon" Level="1" Speed="2" Life="500" Defenese="4" GetCoin="6" Damage="40" PrefabPath="Boss/dragon.prefab"/>
 </Root>
