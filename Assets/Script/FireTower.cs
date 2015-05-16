@@ -14,8 +14,15 @@ public class FireTower : Tower
         m_fireParticle = m_fireObj.GetComponent<ParticleSystem>();
         m_fireObj.SetActive(false);
 	}
-	
-	
+
+    protected override void RotateTo()
+    {
+        if(m_ifFiring)
+        {
+            return;
+        }
+        base.RotateTo();
+    }
 
 
     public override void ScanForEnemy()

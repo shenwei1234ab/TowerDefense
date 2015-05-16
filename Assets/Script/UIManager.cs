@@ -30,6 +30,14 @@ public class UIManager : MonoBehaviour
     public GameObject m_uiWaringPreb;
     
 
+
+    //胜利后的ui画面
+    public GameObject m_uiGameComplete;
+
+
+
+    public GameObject m_uiGameOver;
+
     public int CurWave
     {
         set
@@ -158,4 +166,15 @@ public class UIManager : MonoBehaviour
         StartCoroutine("LastWaveStart");
     }
 
+
+
+    public void ShowGameCompletePanel()
+    {
+        m_uiGameComplete.SetActive(true);
+    }
+
+    public void ShowGameOverPanel()
+    {
+        m_uiGameOver.SetActive(true);
+    }
 }

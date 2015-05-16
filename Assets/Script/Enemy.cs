@@ -37,6 +37,8 @@ public class Enemy : MonoBehaviour
     public int m_enemyDefense=0;
     public int m_enemyCoin = 0;
 
+
+    public EnemyFactory m_enemyFactory;
 	// Use this for initialization
 
     void Awake()
@@ -186,6 +188,7 @@ public class Enemy : MonoBehaviour
             DestoryEnemy();
             //添加金币
             GameManager.GetInstance().AddCoin(m_enemyCoin);
+            
         }
     }
 
@@ -194,6 +197,13 @@ public class Enemy : MonoBehaviour
     IEnumerator dieComplete()
     {
         yield return new WaitForSeconds(3);
+        //工厂中现在的敌人数
+        m_enemyFactory.m_totalEnemies -= 1;
+        //如果当前已经是最后一个敌人
+        if(m_enemyFactory.m_totalEnemies == 0)
+        {
+            GameManager.GetInstance().GameComplete();
+        }
         Destroy(this.gameObject);
     }
 }

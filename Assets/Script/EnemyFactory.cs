@@ -15,7 +15,7 @@ public class EnemyFactory : MonoBehaviour
         LastWave,
         NoWave,
     }
-    WaveState m_waveState;
+     WaveState m_waveState;
     //序列号
     int m_Index = 0;
 
@@ -57,6 +57,8 @@ public class EnemyFactory : MonoBehaviour
     //保存敌人的数据
     ArrayList m_EnemyDataList;
 	
+    //要生产的敌人总数
+    public int m_totalEnemies;
     void Awake()
     {
         
@@ -98,6 +100,7 @@ public class EnemyFactory : MonoBehaviour
                 m_EnemyDataList.Add(data);
             }
         }
+        m_totalEnemies = m_EnemyDataList.Count;
     }
 
     
@@ -105,6 +108,11 @@ public class EnemyFactory : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
+        //如果
+        if (GameManager.GetInstance().m_gameStatus == GameStatus.GameIsFininshed || GameManager.GetInstance().m_gameStatus == GameStatus.GameOver)
+        {
+            return;
+        }
         if (!m_ifProductMonster)
         {
             return;
@@ -152,10 +160,7 @@ public class EnemyFactory : MonoBehaviour
         //查找敌人的prefab
         Monster  enemyData = FindEnemy(data.m_Name,data.m_Level);
         //生成敌人
-        if (enemyData!=null)
-        {
-            GameObject newEnemy = (GameObject)Instantiate(enemyData.enemyPrefab, m_StartNode.transform.position, m_StartNode.transform.rotation);
-               
+            GameObject newEnemy = (GameObject)Instantiate(enemyData.enemyPrefab, m_StartNode.transform.position, m_StartNode.transform.rotation);  
             //添加脚本
             //newEnemy.AddComponent<Enemy>();
             newEnemy.SetActive(true);
@@ -167,14 +172,15 @@ public class EnemyFactory : MonoBehaviour
             enemyComponet.m_enemyDefense = enemyData.enemyDefense;
             enemyComponet.m_enemyDamage = enemyData.enemyDamage;
             enemyComponet.m_enemyCoin = enemyData.enemyCoin;
-            //加入到场景的容器中
+            enemyComponet.m_enemyFactory = this;
             GameManager.GetInstance().m_EnemyList.Add(enemyComponet);
-        }
         //准备读取下一条记录
         //如果当前是最后一条记录
         if (m_Index >= m_EnemyDataList.Count-1)
         {
+            //最后一个敌人
             m_waveState = WaveState.NoWave;
+
             //不再产生怪物
             m_ifProductMonster = false;
             Debug.Log("Last Enemy");
