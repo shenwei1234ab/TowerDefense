@@ -64,19 +64,12 @@ public class InputSystem : MonoBehaviour
                     break;
                 case ButtonType.Exit:
                     UIEventListener.Get(button).onClick = ExitButtonOnClick;
+                    //什么事都不做
                     break;
-
-                case ButtonType.NextScene:
-                    UIEventListener.Get(button).onClick = NextSceneOnClick;
-                    break;
-
-                case ButtonType.BackToMain:
-                    UIEventListener.Get(button).onClick = BackToMainOnClick;
-                    break;
-                    
             }
             UIEventListener.Get(button).onHover = UIButtonOnHover;
         }
+
     }
 	// Use this for initialization
 	void Start () 
@@ -161,7 +154,8 @@ public class InputSystem : MonoBehaviour
                             //}
                             Debug.Log("hit other");
                         }
-                    }            
+                    }
+                    
             }
         }
 	}
@@ -223,16 +217,4 @@ public class InputSystem : MonoBehaviour
            m_mousePos = MousePosition.HoverInScene;
        }
    }
-
-
-    void BackToMainOnClick(GameObject button)
-    {
-        Debug.Log("BackToMain");
-    }
-
-
-    void NextSceneOnClick(GameObject button)
-    {
-        Debug.Log("NextScene");
-    }
 }

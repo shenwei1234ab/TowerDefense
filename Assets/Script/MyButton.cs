@@ -6,8 +6,6 @@ public enum ButtonType
     UpdateTower,
     DestoryTower,
     Exit,
-    NextScene,
-    BackToMain
 }
 
 public class MyButton : MonoBehaviour 

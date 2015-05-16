@@ -163,7 +163,7 @@ public class Tower : MonoBehaviour
     }
 
 
-    protected virtual void RotateTo()
+    void RotateTo()
     {
         //如果能攻击敌人就转向他
         if (m_AttackEnemyTran == null)

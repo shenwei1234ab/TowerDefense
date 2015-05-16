@@ -2,24 +2,20 @@
 using System.Collections;
 
 
-
-public enum GameStatus
-{
-    GameStart,
-    GameIsFininshed,
-    GameOver,
-}
 //游戏逻辑
 public class GameManager : MonoBehaviour 
 {
-    [HideInInspector]
-   public  GameStatus m_gameStatus;
+    
     //particle system
     public GameObject m_BuildingEffect;
     public GameObject m_BuildingDoneEffect;
     //UI管理
     //当前的金币
     public int m_curCoins = 10;
+
+
+
+
     //与地面的碰撞层
     public LayerMask m_groundLayer;
     //基地的生命
@@ -200,7 +196,7 @@ public class GameManager : MonoBehaviour
         UIManager.Instance().Life = m_Life;
         if(m_Life == 0)
         {
-            GameOver();
+            //GameOver;
         }
     }
 
@@ -275,15 +271,14 @@ public class GameManager : MonoBehaviour
     //基地生命为0
     public void GameOver()
     {
-        m_gameStatus = GameStatus.GameOver;
-        UIManager.Instance().ShowGameOverPanel();
+
     }
 
-    //消灭了所有敌人
-    public void GameComplete()
+
+    //所有的敌人都消灭了
+    public void GameEnd()
     {
-        m_gameStatus = GameStatus.GameIsFininshed;
-        // ui
-        UIManager.Instance().ShowGameCompletePanel();
-    }  
+
+    }
+   
 }
