@@ -7,7 +7,9 @@ public enum ButtonType
     DestoryTower,
     Exit,
     NextScene,
-    BackToMain
+    BackToMain,
+    PauseGame,
+    ResumeGame,
 }
 
 public class MyButton : MonoBehaviour 
@@ -24,11 +26,13 @@ public class MyButton : MonoBehaviour
 
     }
 
-
     void Start()
     {
-       
+        //像inputSystem注册事件
+        InputSystem.Instance().RegistUIEvent(this.gameObject);
     }
+
+
     void Update()
     {
 

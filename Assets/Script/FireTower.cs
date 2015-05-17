@@ -48,8 +48,10 @@ public class FireTower : Tower
             //正在发射火焰就返回
             return;
         }
+       
+        //forward.y =m_AttackEnemyTran.position.y;
         //发射火焰
-        m_fireObj.transform.LookAt(m_AttackEnemyTran.position);
+        m_fireObj.transform.forward = m_ShootPos.forward;
         m_fireObj.SetActive(true);
         m_fireObj.SendMessage("Shoot", m_AttackPower);
         m_ifFiring = true;

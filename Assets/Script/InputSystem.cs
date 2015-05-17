@@ -6,8 +6,6 @@ using System.Collections;
 //处理玩家的输入操作
 public class InputSystem : MonoBehaviour 
 {
-   
-   
     //当前选中的tower
     Tower m_selectTower;
     [HideInInspector]
@@ -46,38 +44,47 @@ public class InputSystem : MonoBehaviour
     void Awake()
     {
         m_instance = this;
-        ////注册所有ui事件
-        GameObject[] buttons = GameObject.FindGameObjectsWithTag("Button");
-        foreach (GameObject button in buttons)
-        {     
-            //判断button的类型
-            switch (button.GetComponent<MyButton>().m_buttonType)
-            {
-                case ButtonType.CreateTower:
-                    UIEventListener.Get(button).onClick = CreateButtonOnClick;
-                    break;
-                case ButtonType.UpdateTower:
-                    UIEventListener.Get(button).onClick = UpdateButtonOnClick;
-                    break;
-                case ButtonType.DestoryTower:
-                    UIEventListener.Get(button).onClick = DestoryButtonOnClick;
-                    break;
-                case ButtonType.Exit:
-                    UIEventListener.Get(button).onClick = ExitButtonOnClick;
-                    break;
-
-                case ButtonType.NextScene:
-                    UIEventListener.Get(button).onClick = NextSceneOnClick;
-                    break;
-
-                case ButtonType.BackToMain:
-                    UIEventListener.Get(button).onClick = BackToMainOnClick;
-                    break;
-                    
-            }
-            UIEventListener.Get(button).onHover = UIButtonOnHover;
-        }
     }
+
+
+    //注册事件
+    public void RegistUIEvent(GameObject button)
+    {
+        //判断button的类型
+        switch (button.GetComponent<MyButton>().m_buttonType)
+        {
+            case ButtonType.CreateTower:
+                UIEventListener.Get(button).onClick = CreateButtonOnClick;
+                break;
+            case ButtonType.UpdateTower:
+                UIEventListener.Get(button).onClick = UpdateButtonOnClick;
+                break;
+            case ButtonType.DestoryTower:
+                UIEventListener.Get(button).onClick = DestoryButtonOnClick;
+                break;
+            case ButtonType.Exit:
+                UIEventListener.Get(button).onClick = ExitButtonOnClick;
+                break;
+
+            case ButtonType.NextScene:
+                UIEventListener.Get(button).onClick = NextSceneOnClick;
+                break;
+            case ButtonType.BackToMain:
+                UIEventListener.Get(button).onClick = BackToMainOnClick;
+                break;
+            case ButtonType.PauseGame:
+                UIEventListener.Get(button).onClick = PauseGame;
+                break;
+            case ButtonType.ResumeGame:
+                UIEventListener.Get(button).onClick = ResumeGame;
+                break;
+        }
+        UIEventListener.Get(button).onHover = UIButtonOnHover;
+    }
+
+
+
+
 	// Use this for initialization
 	void Start () 
     {
@@ -97,6 +104,10 @@ public class InputSystem : MonoBehaviour
             }
             else
             {
+                if (GameManager.GetInstance().m_gameStatus !=GameStatus.GameStart)
+                {
+                    return;
+                }
                 //如果点击事件在场景中
                 Vector3 mousePos = Input.mousePosition;
                     //创建一条从摄像机射出的射线
@@ -154,11 +165,7 @@ public class InputSystem : MonoBehaviour
                         }
                         else
                         {
-                            //if (m_selectTower)
-                            //{
-                            //    UIManager.Instance().HidPanel();
-                            //    m_selectTower = null;
-                            //}
+
                             Debug.Log("hit other");
                         }
                     }            
@@ -171,6 +178,10 @@ public class InputSystem : MonoBehaviour
     //点击到了ui
     void CreateButtonOnClick(GameObject button)
     {
+        if(GameManager.GetInstance().m_gameStatus !=GameStatus.GameStart)
+        {
+            return;
+        }
         //之前已经选中了
         if(m_selectButton)
         {
@@ -235,4 +246,16 @@ public class InputSystem : MonoBehaviour
     {
         Debug.Log("NextScene");
     }
+
+    void PauseGame(GameObject button)
+    {
+        GameManager.GetInstance().PauseGame();
+    }
+
+
+    void ResumeGame(GameObject button)
+    {
+        GameManager.GetInstance().ResumeGame();
+    }
 }
+

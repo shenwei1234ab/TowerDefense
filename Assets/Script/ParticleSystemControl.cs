@@ -2,7 +2,7 @@
 using System.Collections;
 
 //粒子系统控制,过了粒子的播放完成就通知注册者  
-public class ParticleSystemControl : MonoBehaviour 
+public class ParticleSystemControl : MonoBehaviour
 {
     public delegate void ParticleComplete(GameObject sender);
     public event ParticleComplete m_particleCompleteEvent;
@@ -17,6 +17,7 @@ public class ParticleSystemControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         if (m_particleSystem.IsAlive())
         {
             return;

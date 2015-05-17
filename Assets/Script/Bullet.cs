@@ -43,6 +43,12 @@ public class Bullet : MonoBehaviour
         bool reach = ReachTarget(m_AttackEnemy);
         if(reach)
         {
+            if (m_explosionObj)
+            {
+                GameObject explosionObj = (GameObject)GameObject.Instantiate(m_explosionObj, m_explosionPos.position, m_explosionPos.rotation);
+                //设置爆炸脚本的回掉函数
+                explosionObj.GetComponent<ParticleSystemControl>().m_particleCompleteEvent += ParticleCompleteEvent;
+            }
             Destroy(this.gameObject);
         }
     }
@@ -64,22 +70,20 @@ public class Bullet : MonoBehaviour
 
     
    public  virtual void OnTriggerEnter(Collider collider)
-    {
-       //射击到了怪物
-       if(collider.tag.CompareTo("Monster") == 0)
-       {
-          //调用怪物的getdamage方法
-           collider.gameObject.SendMessage("GetDamage", m_AttackPower);
-           //如果要爆炸效果
-           if (m_explosionObj)
-           {
-              
-               GameObject explosionObj = (GameObject)GameObject.Instantiate(m_explosionObj, m_explosionPos.position, m_explosionPos.rotation);
-               //设置爆炸脚本的回掉函数
-               explosionObj.GetComponent<ParticleSystemControl>().m_particleCompleteEvent += ParticleCompleteEvent;
-           }
-           Destroy(gameObject);
-       }
+   {
+        if (collider.tag.CompareTo("Monster") == 0)
+        {
+            //调用怪物的getdamage方法
+            collider.gameObject.SendMessage("GetDamage", m_AttackPower);
+            //如果要爆炸效果
+            if (m_explosionObj)
+            {
+                GameObject explosionObj = (GameObject)GameObject.Instantiate(m_explosionObj, m_explosionPos.position, m_explosionPos.rotation);
+                //设置爆炸脚本的回掉函数
+                explosionObj.GetComponent<ParticleSystemControl>().m_particleCompleteEvent += ParticleCompleteEvent;
+            }
+            Destroy(gameObject);
+        }
     }
 
     //默认是使particleSystem消失

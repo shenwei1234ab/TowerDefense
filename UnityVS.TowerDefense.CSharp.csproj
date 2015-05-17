@@ -225,7 +225,6 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\Script\Bullet.cs" />
-    <Compile Include="Assets\Script\ButtonTest.cs" />
     <Compile Include="Assets\Script\DataBase.cs" />
     <Compile Include="Assets\Script\Enemy.cs" />
     <Compile Include="Assets\Script\EnemyFactory.cs" />
@@ -245,9 +244,9 @@
     <Compile Include="Assets\Script\ProcessBar.cs" />
     <Compile Include="Assets\Script\Rocket.cs" />
     <Compile Include="Assets\Script\RocketTower.cs" />
+    <Compile Include="Assets\Script\RotateTest.cs" />
     <Compile Include="Assets\Script\ShootObj.cs" />
     <Compile Include="Assets\Script\Skill.cs" />
-    <Compile Include="Assets\Script\Test.cs" />
     <Compile Include="Assets\Script\TouchTest.cs" />
     <Compile Include="Assets\Script\Tower.cs" />
     <Compile Include="Assets\Script\TowerFactory.cs" />

@@ -187,7 +187,7 @@ public class DataBase : ScriptableObject
 	// Update is called once per frame
 	void Update () 
     {
-	
+	    
 	}
 
 

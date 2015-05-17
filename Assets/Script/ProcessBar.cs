@@ -2,7 +2,7 @@
 using System.Collections;
 
 //随着时间流逝
-public class ProcessBar : MonoBehaviour 
+public class ProcessBar : MonoBehaviour
 {
     public delegate void TimeComplete(GameObject sender);
     public event TimeComplete m_timeOverEvent;
@@ -22,6 +22,7 @@ public class ProcessBar : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
+       
 	    if(m_timer <= 0)
         {
 

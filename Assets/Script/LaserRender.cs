@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LaserRender : MonoBehaviour 
+public class LaserRender : MonoBehaviour
 {
     public GameObject m_Laser;
 	// Use this for initialization
@@ -13,12 +13,11 @@ public class LaserRender : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-	
+        
 	}
 
     void OnTriggerEnter(Collider collider)
     {
-       
         m_Laser.SendMessage("OnTriggerEnter", collider);
     }
 }

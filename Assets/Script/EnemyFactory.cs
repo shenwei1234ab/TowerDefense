@@ -6,7 +6,7 @@ using System.IO;
 
 using System.Security;
 
-public class EnemyFactory : MonoBehaviour 
+public class EnemyFactory : MonoBehaviour
 {
 
     enum WaveState
@@ -108,11 +108,7 @@ public class EnemyFactory : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        //如果
-        if (GameManager.GetInstance().m_gameStatus == GameStatus.GameIsFininshed || GameManager.GetInstance().m_gameStatus == GameStatus.GameOver)
-        {
-            return;
-        }
+     
         if (!m_ifProductMonster)
         {
             return;

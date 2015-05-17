@@ -6,6 +6,7 @@ using System.Collections;
 public enum GameStatus
 {
     GameStart,
+    GamePause,
     GameIsFininshed,
     GameOver,
 }
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
     //与地面的碰撞层
     public LayerMask m_groundLayer;
     //基地的生命
-    int m_Life = 10;
+    public int m_Life = 100;
     //当前所有的敌人容器
     public ArrayList m_EnemyList = new ArrayList();
 	
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     //private MyButton m_SelectButton = null;
 
     void Awake()
-    {  ////注册所有ui事件
+    { 
         m_Instance = this;
     }
 
@@ -69,7 +70,6 @@ public class GameManager : MonoBehaviour
             m_Wave = value;
             //在ui上显示
             UIManager.Instance().CurWave = m_Wave;
-
         }
         get
         {
@@ -91,7 +91,6 @@ public class GameManager : MonoBehaviour
            return m_TotalWaves;
        }
    }
-
 
    
 
@@ -270,6 +269,25 @@ public class GameManager : MonoBehaviour
     //    m_ifSelected = false;
     //}
 
+    public void PauseGame()
+    {
+        if (m_gameStatus == GameStatus.GameOver || m_gameStatus == GameStatus.GameIsFininshed)
+        {
+            return;
+        }
+        Time.timeScale = 0;
+        m_gameStatus = GameStatus.GamePause;
+    }
+
+    public void ResumeGame()
+    {
+        if (m_gameStatus == GameStatus.GamePause)
+        {
+            Time.timeScale = 1;
+            m_gameStatus = GameStatus.GameStart;
+        }
+        
+    }
 
 
     //基地生命为0
@@ -282,6 +300,10 @@ public class GameManager : MonoBehaviour
     //消灭了所有敌人
     public void GameComplete()
     {
+        if(m_gameStatus == GameStatus.GameOver)
+        {
+            return;
+        }
         m_gameStatus = GameStatus.GameIsFininshed;
         // ui
         UIManager.Instance().ShowGameCompletePanel();

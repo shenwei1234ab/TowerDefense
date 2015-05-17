@@ -2,7 +2,7 @@
 using System.Collections;
 
 //控制火焰
-public class Fire : MonoBehaviour 
+public class Fire : MonoBehaviour
 {   
     //伤害
     int m_attackPower;
@@ -21,5 +21,10 @@ public class Fire : MonoBehaviour
             //调用怪物的getdamage方法
             other.SendMessage("GetDamage", m_attackPower);
         }
+    }
+
+    void Update()
+    {
+        
     }
 }

@@ -59,7 +59,7 @@ public class Laser : Bullet
             Debug.Log("射线射到了");
             //射到了怪物
             hit.collider.gameObject.SendMessage("GetDamage", m_AttackPower);
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         else
         {
