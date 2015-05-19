@@ -33,14 +33,6 @@ public class InputSystem : MonoBehaviour
 
 
 
-    //enum PressStatus
-    //{
-    //    None,
-    //    PressedCreateButton,
-    //    PressedTower,
-    //}
-    //PressStatus m_pressStatus;
-
     void Awake()
     {
         m_instance = this;

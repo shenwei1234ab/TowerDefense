@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Root>
-	<table Enemyname="orc" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab"/>
-	<table Enemyname="orc" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab"/>
-	<table Enemyname="ghost" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab"/>
-	<table Enemyname="ghost" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab"/>
-	<table Enemyname="dragon" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab"/>
-	<table Enemyname="dragon" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab"/>
-	<table Enemyname="mummy" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab"/>
-	<table Enemyname="mummy" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab"/>
-	<table Enemyname="skeleton" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab"/>
-	<table Enemyname="skeleton" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab"/>
-	<table Enemyname="zombie" Level="1" Speed="1.5" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab"/>
-	<table Enemyname="zombie" Level="2" Speed="1.5" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab"/>
-	<table Enemyname="werewolf" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
-	<table Enemyname="werewolf" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab"/>
-	<table Enemyname="boss_dragon" Level="1" Speed="2" Life="500" Defenese="2" GetCoin="6" Damage="40" PrefabPath="Boss/dragon.prefab"/>
+	<table Enemyname="orc" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab" IconPath="orc" Description="莽撞的兽人"/>
+	<table Enemyname="orc" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Orc/micro_orc.prefab" IconPath="orc" Description="2级的兽人"/>
+	<table Enemyname="ghost" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab" IconPath="ghost" Description="面目狰狞却胆小的胆小鬼"/>
+	<table Enemyname="ghost" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Ghost/micro_ghost.prefab" IconPath="ghost" Description="2级的胆小鬼"/>
+	<table Enemyname="dragon" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab" IconPath="dragon" Description="自认为是巨龙的小鬼，血较厚"/>
+	<table Enemyname="dragon" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Dragon/micro_dragon.prefab" IconPath="dragon" Description="2级的小龙"/>
+	<table Enemyname="mummy" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab" IconPath="mummy" Description="因为爆炸而伤了眼睛从此就怕火了"/>
+	<table Enemyname="mummy" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Mummy/micro_mummy.prefab" IconPath="mummy" Description="2级僵尸"/>
+	<table Enemyname="skeleton" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab" IconPath="skeleton" Description="骷髅军团的小兵"/>
+	<table Enemyname="skeleton" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Skeleton/micro_skeleton.prefab" IconPath="skeleton" Description="2级骷髅军团的小兵"/>
+	<table Enemyname="zombie" Level="1" Speed="1.5" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab" IconPath="zombie" Description="总想吓人的调皮鬼"/>
+	<table Enemyname="zombie" Level="2" Speed="1.5" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Zombie/micro_zombie.prefab" IconPath="zombie" Description="2级的调皮鬼"/>
+	<table Enemyname="werewolf" Level="1" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab" IconPath="werewolf" Description="与骷髅是死对头"/>
+	<table Enemyname="werewolf" Level="2" Speed="2" Life="500" Defenese="1" GetCoin="4" Damage="20" PrefabPath="Standard/Werewolf/micro_werewolf.prefab" IconPath="werewolf" Description="2级狼人"/>
+	<table Enemyname="boss_dragon" Level="1" Speed="2" Life="500" Defenese="2" GetCoin="6" Damage="40" PrefabPath="Boss/dragon.prefab" IconPath="boss_dragon" Description="巨大的龙，喜欢飞行"/>
+	<table Enemyname="boss_dragon" Level="2" Speed="2" Life="600" Defenese="2" GetCoin="6" Damage="40" PrefabPath="Boss/dragon.prefab" IconPath="boss_dragon" Description="2级Boss龙"/>
 </Root>

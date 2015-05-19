@@ -17,7 +17,6 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector]
     //生命
- 
     public bool m_ifDead = false;
 
     public int m_maxLife = 50;
@@ -32,12 +31,14 @@ public class Enemy : MonoBehaviour
     private GameObject m_LifeBarPreb;
     private Camera m_uiCamera;
     private Camera m_mainCamera;
+
     public int m_enemyDamage=1;
     public float m_enemySpeed=1;
     public int m_enemyDefense=0;
     public int m_enemyCoin = 0;
-
-
+    //图标的名字
+    public string m_enemyIcon;
+    public string m_descriptionText;
     public EnemyFactory m_enemyFactory;
 	// Use this for initialization
 

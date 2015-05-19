@@ -28,7 +28,10 @@ public class Monster
     //击败后获得的金币
     public int enemyCoin = 1;
 
-    public Monster(string name, int level, string enemyPre, float speed,int life, int defense,int damage, int coin)
+
+    public string enemyIcon;
+    public string enemyDesciption;
+    public Monster(string name, int level, string enemyPre, float speed,int life, int defense,int damage, int coin,string icon,string description)
     {
         enemyName = name;
         enemyLevel = level;
@@ -38,6 +41,8 @@ public class Monster
         enemyDamage = damage;
         enemyCoin = coin;
         enemyPrefab = Resources.LoadAssetAtPath<GameObject>(enemyPre);
+        enemyIcon = icon;
+        enemyDesciption = description;
     }
 }
 
@@ -79,6 +84,8 @@ public class TowerData
 //游戏开始从xml读取怪物和tower的信息
 public class DataBase : ScriptableObject 
 {
+    //我选择的塔的类型
+    public List<TowerType> m_selectTowerTypes;
     private static DataBase m_Instance = null;
     public static DataBase GetInstance()
     {
@@ -106,6 +113,7 @@ public class DataBase : ScriptableObject
 
     void Awake()
     {
+        m_selectTowerTypes = new List<TowerType>();
         //读取Monster.xml文件
         m_MonsterDatas = new Dictionary<string, Monster>();
         SecurityParser SP = new SecurityParser();
@@ -125,8 +133,9 @@ public class DataBase : ScriptableObject
                 int enemyDefense = int.Parse(child.Attribute("Defenese"));
                 int enemyDamage = int.Parse(child.Attribute("Damage"));
                 int getCoin = int.Parse(child.Attribute("GetCoin"));
-
-                Monster monster = new Monster(enemyName, enemyLevel, prePath, enemySpeed, enemyLife, enemyDefense, enemyDamage, getCoin);
+                string enemyIcon = child.Attribute("IconPath");
+                string enemyDescrption = child.Attribute("Description");
+                Monster monster = new Monster(enemyName, enemyLevel, prePath, enemySpeed, enemyLife, enemyDefense, enemyDamage, getCoin, enemyIcon, enemyDescrption);
                 //加入到字典容器中方便下次查询
                 //键：enemyName+enemyLevel
                 string key = enemyName + enemyLevel.ToString();
