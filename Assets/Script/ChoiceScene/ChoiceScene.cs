@@ -12,7 +12,9 @@ public class ChoiceScene : MonoBehaviour
 {
     //要出现的敌人
     Dictionary<string, Monster> m_monsters;
-    // Use this for initialization
+   
+    //玩家选择的Tower
+    List<Tower> m_towers;
     void Start()
     {
         m_monsters = new Dictionary<string, Monster>();

@@ -20,7 +20,7 @@ public class MonsterUIButton :UiButton
     protected void Start()
     {
         //向ChoiceScene注册事件
-        ChoiceSceneInputSystem.Instance().RegistUIEvent(this);
+        ChoiceSceneUI.Instance().RegistUIEvent(this);
     }
 
     // Update is called once per frame

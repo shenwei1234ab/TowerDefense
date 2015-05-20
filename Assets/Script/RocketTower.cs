@@ -9,7 +9,11 @@ public class RocketTower : Tower
     public override void Shoot()
     {
         CreateRocket(m_ShootPos.position);
-        CreateRocket(m_ShootPos2.position);
+        if(m_ShootPos2)
+        {
+            CreateRocket(m_ShootPos2.position);
+        }
+       
     }
 
     void CreateRocket(Vector3 pos)
