@@ -32,6 +32,5 @@ public class UiButton : MonoBehaviour
         {
             m_highLightBorder.SetActive(false);
         }
-        
     }
 }

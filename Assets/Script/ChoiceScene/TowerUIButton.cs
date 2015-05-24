@@ -2,20 +2,15 @@
 using System.Collections;
 
 //tower图标拖动
-public class TowerUIButton : UIDragDropItem 
+public class TowerUIButton : UiButton 
 {
     [HideInInspector]
-    //public bool m_ifSelected = false;
-    //对应tower的类型 
+    public bool m_ifSelected = false;
     public TowerType m_towerType;
 	// Use this for initialization
-	
-
-
-    //拖动
-    protected override void OnDragDropRelease(GameObject surface)
+    protected void Start()
     {
-        base.OnDragDropRelease(surface);
-        Debug.Log(surface);
+        //向ChoiceScene注册事件
+        ChoiceSceneUI.Instance().RegistUIEvent(this);
     }
 }

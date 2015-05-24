@@ -10,9 +10,13 @@ public class ChoiceSceneUI : MonoBehaviour
     //TowerIcon的最初的位置
     public GameObject m_uiTowerIconPreb;
 
-    //当前选择的Tower的集合
-    public List<SelectTowerUIButton> m_selectedTowerButtons;
-    
+
+    //选择的塔的位置
+    public GameObject[] m_selectTowersObj;
+    //
+    int m_curSelectNumbers=0;
+    //限制的选择的塔的数量
+    int m_maxSelectNumbers ;
     
     public UILabel m_uiLevel;
     public UILabel m_uiSpeed;
@@ -90,6 +94,7 @@ public class ChoiceSceneUI : MonoBehaviour
 	void Start () 
     {
         m_initPos = m_uiMonsterIconPreb.transform.localPosition;
+        m_maxSelectNumbers = m_selectTowersObj.Length;
 	}
 	
 	// Update is called once per frame
@@ -121,10 +126,10 @@ public class ChoiceSceneUI : MonoBehaviour
         {
             UIEventListener.Get(button.gameObject).onClick = NormalButtonClickOn;
         }
-        //else if (button as TowerUIButton)
-        //{
-        //    UIEventListener.Get(button.gameObject).onClick = TowerButtonClickOn;
-        //}
+        else if (button as TowerUIButton)
+        {
+            UIEventListener.Get(button.gameObject).onClick = TowerButtonClickOn;
+        }
     }
 
     //点击到了某个怪兽的图标
@@ -164,6 +169,58 @@ public class ChoiceSceneUI : MonoBehaviour
 
     void TowerButtonClickOn(GameObject button)
     {
-      
+        //
+        TowerUIButton towerButton = button.GetComponent<TowerUIButton>();
+        if (towerButton.m_ifSelected)
+        {
+            towerButton.m_ifSelected = false;
+            towerButton.NotSelected();
+            //从m_selectTowersObj删除
+            DeleteFromSelectTowers(towerButton);
+        }
+        else   //没有选过
+        {  
+            //如果满了
+            if (m_curSelectNumbers >= m_maxSelectNumbers)
+            {
+                return;
+            }
+            //ui显示
+            towerButton.m_ifSelected = true;
+            towerButton.Selected();
+            CreateToSelectTowers(towerButton);
+        } 
     }
+
+    void CreateToSelectTowers(TowerUIButton towerButton)
+    {
+        //遍历m_maxSelectNumbers
+        foreach (GameObject Tower in m_selectTowersObj)
+        {
+            SelectTowerUIButton selectButton = Tower.GetComponent<SelectTowerUIButton>();
+            if (!selectButton.Selected)
+            {
+                //找到位置
+                selectButton.SetSprite(towerButton.m_towerType);
+                m_curSelectNumbers++;
+            }
+        }
+    }
+
+
+    void DeleteFromSelectTowers(TowerUIButton towerButton)
+    {
+        foreach (GameObject Tower in m_selectTowersObj)
+        {
+            SelectTowerUIButton selectButton = Tower.GetComponent<SelectTowerUIButton>();
+            //找到
+            if(towerButton.m_towerType == selectButton.m_towerType)
+            {
+                selectButton.DeleteSprite();
+                m_curSelectNumbers--;
+            }
+        }
+    }
+
+    
 }

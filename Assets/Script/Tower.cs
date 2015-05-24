@@ -12,6 +12,7 @@ public enum TowerState
 //对应Tower.xml文件 
 public enum TowerType
 {
+    None,
     Acid,
     Cannon,
     Cross,
@@ -163,20 +164,6 @@ public class Tower : MonoBehaviour
     }
 
 
-    //protected virtual void RotateTo()
-    //{
-    //    //如果能攻击敌人就转向他
-    //    if (m_AttackEnemyTran == null)
-    //    {
-    //        return;
-    //    }
-    //    Vector3 current = m_TopTower.eulerAngles;
-    //    //转向下一帧物体的位置
-    //    m_TopTower.LookAt(m_AttackEnemyTran.transform.position+m_AttackEnemyTran.transform.forward);
-    //    Vector3 target = m_TopTower.eulerAngles;
-    //    float next = Mathf.MoveTowardsAngle(current.y, target.y, 120 * Time.deltaTime);
-    //    m_TopTower.eulerAngles = new Vector3(current.x, next, current.z);
-    //}
 
     protected virtual void RotateTo()
    {
