@@ -13,7 +13,6 @@ public enum ButtonType
 }
 public class UINormalButton : UiButton 
 {
-
     public ButtonType m_buttonType;
 	// Use this for initialization
 	void Start () 

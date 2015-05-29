@@ -111,6 +111,10 @@ public class DataBase : ScriptableObject
     public Dictionary<string, TowerData> m_TowerDatas;
 
 
+
+
+
+
     void Awake()
     {
         m_selectTowerTypes = new List<TowerType>();
@@ -198,6 +202,16 @@ public class DataBase : ScriptableObject
     {
 	    
 	}
+
+    //保存选择塔的类型 
+   public void SaveTowerType(List<TowerType> towerTypeArray)
+    {
+        foreach( TowerType type in towerTypeArray)
+        {
+            m_selectTowerTypes.Add(type);
+        }
+    }
+
 
 
 

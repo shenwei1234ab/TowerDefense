@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//创建塔的uiButton
 public class UITowerButton : UiButton
 {
-    public GameObject m_anchorObj;
+    //public GameObject m_anchorObj;
     //对应tower的类型 
-     TowerType m_towerType;
+    public TowerType m_towerType;
+    
+
     // Use this for initialization
 
 
@@ -17,8 +20,6 @@ public class UITowerButton : UiButton
     {
         //像inputSystem注册事件
         InputSystem.Instance().RegistUIEvent(this);
-   
-
     }
 
     // Update is called once per frame

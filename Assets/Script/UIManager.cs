@@ -5,6 +5,8 @@ using System.Collections;
 //ui管理
 public class UIManager : MonoBehaviour 
 {
+    public GameObject m_towerButtoniconPreb;
+    public float m_towerButtoniconAnchor = -67.0f;
     private static UIManager m_instance;
     public static UIManager Instance()
     {
@@ -83,6 +85,21 @@ public class UIManager : MonoBehaviour
          m_uiTowerButtonInitPos = m_uiTowerButtonPanel.transform.position;
         //等待动画完成开始出最后一波
          m_tweenTime = m_uiLastWave.GetComponent<TweenAlpha>().duration * 2;
+        //读取玩家选择的towertype 并生成相应的uibutton
+         int index = 1;
+
+        Vector3 initPos = m_towerButtoniconPreb.transform.localPosition;
+        foreach( TowerType type in DataBase.GetInstance().m_selectTowerTypes)
+        {
+            //
+            GameObject newTowerIcon =(GameObject) GameObject.Instantiate(m_towerButtoniconPreb);
+            newTowerIcon.transform.parent = m_towerButtoniconPreb.transform.parent;
+            newTowerIcon.transform.localScale = new Vector3(1, 1, 1);
+            newTowerIcon.transform.localPosition = initPos + new Vector3(0, (index - 1) * m_towerButtoniconAnchor, 0);
+            newTowerIcon.GetComponent<UITowerButton>().TowerType = type;
+            newTowerIcon.SetActive(true);
+            index++;
+        }
 	}
 
 
@@ -177,4 +194,7 @@ public class UIManager : MonoBehaviour
     {
         m_uiGameOver.SetActive(true);
     }
+
+
+
 }

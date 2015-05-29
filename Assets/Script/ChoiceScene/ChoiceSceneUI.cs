@@ -152,6 +152,14 @@ public class ChoiceSceneUI : MonoBehaviour
         switch (uiButton.m_uiButtonType)
         {
             case NormalUIButtonType.OK:
+                List<TowerType > towerType=new List<TowerType>();
+                foreach(GameObject obj in m_selectTowersObj)
+                {
+                    TowerUIButton towerButton = obj.GetComponent<TowerUIButton>();
+                    towerType.Add(towerButton.m_towerType);
+                }
+                //进入游戏场景
+                DataBase.GetInstance().SaveTowerType(towerType);
                 Application.LoadLevel("Scene1");
                 break;
             case NormalUIButtonType.BackToMain:
@@ -203,6 +211,7 @@ public class ChoiceSceneUI : MonoBehaviour
                 //找到位置
                 selectButton.SetSprite(towerButton.m_towerType);
                 m_curSelectNumbers++;
+                break;
             }
         }
     }
@@ -218,6 +227,7 @@ public class ChoiceSceneUI : MonoBehaviour
             {
                 selectButton.DeleteSprite();
                 m_curSelectNumbers--;
+                break;
             }
         }
     }

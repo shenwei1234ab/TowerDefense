@@ -10,7 +10,7 @@ public class InputSystem : MonoBehaviour
     Tower m_selectTower;
     [HideInInspector]
     //当前要选中的图标
-    public MyButton m_selectButton = null;
+    public UITowerButton m_selectButton = null;
     [HideInInspector]
     //public MyButton m_hoverButton = null;
     enum MousePosition
@@ -40,38 +40,43 @@ public class InputSystem : MonoBehaviour
 
 
     //注册事件
-    public void RegistUIEvent(GameObject button)
+    public void RegistUIEvent(UiButton button)
     {
-        //判断button的类型
-        switch (button.GetComponent<MyButton>().m_buttonType)
+        //如果是创建TowerButton
+        if(button as UITowerButton)
         {
-            case ButtonType.CreateTower:
-                UIEventListener.Get(button).onClick = CreateButtonOnClick;
-                break;
-            case ButtonType.UpdateTower:
-                UIEventListener.Get(button).onClick = UpdateButtonOnClick;
-                break;
-            case ButtonType.DestoryTower:
-                UIEventListener.Get(button).onClick = DestoryButtonOnClick;
-                break;
-            case ButtonType.Exit:
-                UIEventListener.Get(button).onClick = ExitButtonOnClick;
-                break;
-
-            case ButtonType.NextScene:
-                UIEventListener.Get(button).onClick = NextSceneOnClick;
-                break;
-            case ButtonType.BackToMain:
-                UIEventListener.Get(button).onClick = BackToMainOnClick;
-                break;
-            case ButtonType.PauseGame:
-                UIEventListener.Get(button).onClick = PauseGame;
-                break;
-            case ButtonType.ResumeGame:
-                UIEventListener.Get(button).onClick = ResumeGame;
-                break;
+            UIEventListener.Get(button.gameObject).onClick = CreateButtonOnClick;
         }
-        UIEventListener.Get(button).onHover = UIButtonOnHover;
+        else if(button as UINormalButton)
+        {
+            UINormalButton normalButton = button.GetComponent<UINormalButton>();
+            //判断button的类型
+            switch (normalButton.m_buttonType)
+            {
+                case ButtonType.UpdateTower:
+                    UIEventListener.Get(button.gameObject).onClick = UpdateButtonOnClick;
+                    break;
+                case ButtonType.DestoryTower:
+                    UIEventListener.Get(button.gameObject).onClick = DestoryButtonOnClick;
+                    break;
+                case ButtonType.Exit:
+                    UIEventListener.Get(button.gameObject).onClick = ExitButtonOnClick;
+                    break;
+                case ButtonType.NextScene:
+                    UIEventListener.Get(button.gameObject).onClick = NextSceneOnClick;
+                    break;
+                case ButtonType.BackToMain:
+                    UIEventListener.Get(button.gameObject).onClick = BackToMainOnClick;
+                    break;
+                case ButtonType.PauseGame:
+                    UIEventListener.Get(button.gameObject).onClick = PauseGame;
+                    break;
+                case ButtonType.ResumeGame:
+                    UIEventListener.Get(button.gameObject).onClick = ResumeGame;
+                    break;
+            }
+        }
+        UIEventListener.Get(button.gameObject).onHover = UIButtonOnHover;
     }
 
 
@@ -180,7 +185,7 @@ public class InputSystem : MonoBehaviour
             m_selectButton.NotSelected();
             m_selectButton = null;
         }
-        m_selectButton = button.GetComponent<MyButton>();
+        m_selectButton = button.GetComponent<UITowerButton>();
         m_selectButton.Selected();
     }
 
@@ -217,12 +222,10 @@ public class InputSystem : MonoBehaviour
    {
        if(state)
        {
-           //m_hoverButton = button.GetComponent<MyButton>();
            m_mousePos = MousePosition.HoverInUI;
        }
        else
        {
-           //m_hoverButton = null;
            m_mousePos = MousePosition.HoverInScene;
        }
    }
