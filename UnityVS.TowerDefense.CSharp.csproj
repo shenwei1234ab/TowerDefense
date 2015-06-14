@@ -246,6 +246,8 @@
     <Compile Include="Assets\Script\ParticleSystemControl.cs" />
     <Compile Include="Assets\Script\PathNode.cs" />
     <Compile Include="Assets\Script\PathNodeDebug.cs" />
+    <Compile Include="Assets\Script\PoolManager\PoolManager.cs" />
+    <Compile Include="Assets\Script\PoolManager\PoolObject.cs" />
     <Compile Include="Assets\Script\ProcessBar.cs" />
     <Compile Include="Assets\Script\Rocket.cs" />
     <Compile Include="Assets\Script\RocketTower.cs" />
