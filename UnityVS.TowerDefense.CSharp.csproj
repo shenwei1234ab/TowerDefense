@@ -242,7 +242,6 @@
     <Compile Include="Assets\Script\InputSystem.cs" />
     <Compile Include="Assets\Script\Laser.cs" />
     <Compile Include="Assets\Script\LaserRender.cs" />
-    <Compile Include="Assets\Script\MyButton.cs" />
     <Compile Include="Assets\Script\MyUIFollowTarget.cs" />
     <Compile Include="Assets\Script\ParticleSystemControl.cs" />
     <Compile Include="Assets\Script\PathNode.cs" />

@@ -206,7 +206,7 @@ public class ChoiceSceneUI : MonoBehaviour
         foreach (GameObject Tower in m_selectTowersObj)
         {
             SelectTowerUIButton selectButton = Tower.GetComponent<SelectTowerUIButton>();
-            if (!selectButton.Selected)
+            if (!selectButton.Filled)
             {
                 //找到位置
                 selectButton.SetSprite(towerButton.m_towerType);
