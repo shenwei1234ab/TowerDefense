@@ -18,7 +18,8 @@ public class RocketTower : Tower
 
     void CreateRocket(Vector3 pos)
     {
-        GameObject rockObj = (GameObject)Instantiate(m_Rockets, pos, m_TopTower.rotation);
+        GameObject rockObj = PoolManager.GetInstance().GetObject(m_Rockets.name, pos, m_TopTower.rotation);
+       // GameObject rockObj = (GameObject)Instantiate(m_Rockets, pos, m_TopTower.rotation);
         //使子弹拥有和塔一样的攻击力
         Bullet bullet = rockObj.GetComponent<Bullet>();
         bullet.m_AttackPower = m_AttackPower;

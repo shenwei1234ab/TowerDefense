@@ -3,15 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 
 //对象池
-public class PoolManager : MonoBehaviour 
+public class PoolManager : MonoBehaviour
 {
     //要缓存的不同类型的基本信息
     [System.Serializable]
     public class PoolObj
     {
+
         public GameObject m_objPreb;
         //初始的数量
         public int m_initCount;
+
+        [HideInInspector]
+        public uint m_uId = 0;
         //缓存池中数量不够时重行生成的数量
         public int m_rebuildCount;
         [HideInInspector]
@@ -38,26 +42,26 @@ public class PoolManager : MonoBehaviour
     {
         m_instance = this;
     }
-	// Use this for initialization
-	void Start () 
+    // Use this for initialization
+    void Start()
     {
         m_poolObjDictionary = new Dictionary<string, PoolObj>();
-	    //遍历preb依次存入map集合中以便于之后取出 
+        //遍历preb依次存入map集合中以便于之后取出 
         foreach (PoolObj obj in m_poolObjArray)
         {
             //obj.m_pool = new List<GameObject>();
             obj.m_pool = new Stack<GameObject>();
-            CreateNewPoolObject(obj.m_objPreb, obj.m_initCount, obj.m_pool);
+            CreateNewPoolObject(obj, obj.m_initCount);
             m_poolObjDictionary.Add(obj.m_objPreb.name, obj);
         }
-       
-	}
-	
-	// Update is called once per frame
-	void Update () 
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
-	    
-	}
+
+    }
 
     /// <summary>
     /// 从缓冲池中取出指定类型的对象，如果prefab不存在就返回null
@@ -66,17 +70,17 @@ public class PoolManager : MonoBehaviour
     /// <param name="pos"></param>
     /// <param name="quat"></param>
     /// <returns></returns>
-    public GameObject GetObject(string type,Vector3 pos,Quaternion quat)
+    public GameObject GetObject(string type, Vector3 pos, Quaternion quat)
     {
-        GameObject retObj=null;
+        GameObject retObj = null;
         //在m_pool中查找,如果存在对应的Prefab
-        if(m_poolObjDictionary.ContainsKey(type))
+        if (m_poolObjDictionary.ContainsKey(type))
         {
             //查找是否有空余可用的GameObj
             //List<GameObject> objList = m_poolObjDictionary[type].m_pool;
             Stack<GameObject> objList = m_poolObjDictionary[type].m_pool;
             //如果有可用的GameObject
-            if(objList.Count > 0)
+            if (objList.Count > 0)
             {
                 //取出第一个 
                 //retObj = objList[0];
@@ -95,8 +99,11 @@ public class PoolManager : MonoBehaviour
                 GameObject preb = m_poolObjDictionary[type].m_objPreb;
                 //List<GameObject> pool = m_poolObjDictionary[type].m_pool;
                 Stack<GameObject> pool = m_poolObjDictionary[type].m_pool;
-                CreateNewPoolObject(preb, rebulidCount, pool);
+
+                CreateNewPoolObject(m_poolObjDictionary[type], rebulidCount);
                 retObj = Instantiate(preb) as GameObject;
+                retObj.name = retObj.name + m_poolObjDictionary[type].m_uId;
+                m_poolObjDictionary[type].m_uId++;
                 retObj.AddComponent<PoolObject>();
                 retObj.SendMessage("SetPool", pool);
                 retObj.SetActive(true);
@@ -109,11 +116,15 @@ public class PoolManager : MonoBehaviour
     }
 
     //void CreateNewPoolObject(GameObject preb,int num,List<GameObject> pool)
-    void CreateNewPoolObject(GameObject preb,int num,Stack<GameObject> pool)
+    void CreateNewPoolObject(PoolObj poolObj, int num)
     {
-        for(int i=0;i<num;++i)
+        GameObject preb = poolObj.m_objPreb;
+        Stack<GameObject> pool = poolObj.m_pool;
+        for (int i = 0; i < num; ++i)
         {
             GameObject newObj = Instantiate(preb) as GameObject;
+            newObj.name = newObj.name + poolObj.m_uId;
+            ++poolObj.m_uId;
             newObj.AddComponent<PoolObject>();
             newObj.SendMessage("SetPool", pool);
             newObj.SetActive(false);
@@ -122,15 +133,22 @@ public class PoolManager : MonoBehaviour
         }
     }
 
+    //void CreateNewPoolObject(GameObject preb,int num,Stack<GameObject> pool)
+    //{
+    //    for(int i=0;i<num;++i)
+    //    {
+    //        GameObject newObj = Instantiate(preb) as GameObject;
+    //        newObj.AddComponent<PoolObject>();
+    //        newObj.SendMessage("SetPool", pool);
+    //        newObj.SetActive(false);
+    //        //pool.Add(newObj);
+    //        pool.Push(newObj);
+    //    }
+    //}
 
 
 
-    //对象销毁重新回收对象
-    
-    //存入新的到对象池
-    public void SaveObject(string type,int num)
-    {
-        
-        
-    }
+
+
+
 }

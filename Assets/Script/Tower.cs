@@ -64,9 +64,9 @@ public class Tower : MonoBehaviour
     //计时器
     protected float m_Timer = 0.0f;
 
-    //发射的子弹
+    //发射的子弹的名称
     public GameObject m_Rockets;
-
+  
 
     //进度条
      GameObject m_processBar;
@@ -193,10 +193,12 @@ public class Tower : MonoBehaviour
      }
 
    
+    //射击
     public virtual void Shoot()
       {
-          //Debug.Log("射击");
-          GameObject rockObj = (GameObject)Instantiate(m_Rockets, m_ShootPos.position, m_TopTower.rotation);
+        //从缓冲池中获取Bullet对象
+        GameObject rockObj =  PoolManager.GetInstance().GetObject(m_Rockets.name, m_ShootPos.position, m_TopTower.rotation);
+          //GameObject rockObj = (GameObject)Instantiate(m_Rockets, m_ShootPos.position, m_TopTower.rotation);
           //使子弹拥有和塔一样的攻击力
           Bullet bullet = rockObj.GetComponent<Bullet>();
           bullet.m_AttackPower = m_AttackPower;

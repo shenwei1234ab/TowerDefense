@@ -31,3 +31,14 @@ D:\GitProject\Unity\TowerDefense\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
 D:\GitProject\Unity\TowerDefense\obj\Debug\UnityVS.TowerDefense.CSharp.csprojResolveAssemblyReference.cache
 D:\GitProject\Unity\TowerDefense\obj\Debug\Assembly-CSharp.dll
 D:\GitProject\Unity\TowerDefense\obj\Debug\Assembly-CSharp.pdb
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\UnityEditor.dll
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\UnityEngine.dll
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\UnityEngine.xml
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\UnityEditor.xml
+E:\GitProject\TowerDefense\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+E:\GitProject\TowerDefense\obj\Debug\UnityVS.TowerDefense.CSharp.csprojResolveAssemblyReference.cache
+E:\GitProject\TowerDefense\obj\Debug\Assembly-CSharp.dll
+E:\GitProject\TowerDefense\obj\Debug\Assembly-CSharp.pdb

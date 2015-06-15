@@ -59,7 +59,8 @@ public class Laser : Bullet
             Debug.Log("射线射到了");
             //射到了怪物
             hit.collider.gameObject.SendMessage("GetDamage", m_AttackPower);
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            gameObject.SendMessage("Recovery");
         }
         else
         {
@@ -67,7 +68,8 @@ public class Laser : Bullet
             if (m_Line.localScale.y >= m_Distance)
             {
                 //到达目标点
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
+                gameObject.SendMessage("Recovery");
             }
             //没有到达就继续走
             m_Line.localScale += new Vector3(0, m_movingSpeed * Time.deltaTime, 0);
@@ -89,7 +91,8 @@ public class Laser : Bullet
         {
             //调用怪物的getdamage方法
             collider.gameObject.SendMessage("GetDamage", m_AttackPower);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SendMessage("Recovery");
         }
     }
 }
