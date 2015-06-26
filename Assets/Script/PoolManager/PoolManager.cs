@@ -9,7 +9,6 @@ public class PoolManager : MonoBehaviour
     [System.Serializable]
     public class PoolObj
     {
-
         public GameObject m_objPreb;
         //初始的数量
         public int m_initCount;
@@ -22,7 +21,7 @@ public class PoolManager : MonoBehaviour
         //存放相应类型的缓存池
         //public List<GameObject> m_pool;
         //使用stack管理可用的游戏对象
-        public Stack<GameObject> m_pool;
+        public Stack<GameObject> m_pool=new Stack<GameObject>();
     }
 
     public PoolObj[] m_poolObjArray;
@@ -50,7 +49,6 @@ public class PoolManager : MonoBehaviour
         foreach (PoolObj obj in m_poolObjArray)
         {
             //obj.m_pool = new List<GameObject>();
-            obj.m_pool = new Stack<GameObject>();
             CreateNewPoolObject(obj, obj.m_initCount);
             m_poolObjDictionary.Add(obj.m_objPreb.name, obj);
         }
@@ -79,9 +77,15 @@ public class PoolManager : MonoBehaviour
             //查找是否有空余可用的GameObj
             //List<GameObject> objList = m_poolObjDictionary[type].m_pool;
             Stack<GameObject> objList = m_poolObjDictionary[type].m_pool;
-            //如果有可用的GameObject
-            if (objList.Count > 0)
+            //如果对象池中没有可用的对象重新生成
+            if(objList.Count<=0)
             {
+                int rebulidCount = m_poolObjDictionary[type].m_rebuildCount;
+                GameObject preb = m_poolObjDictionary[type].m_objPreb;
+                //List<GameObject> pool = m_poolObjDictionary[type].m_pool;
+                Stack<GameObject> pool = m_poolObjDictionary[type].m_pool;
+                CreateNewPoolObject(m_poolObjDictionary[type], rebulidCount);
+            }
                 //取出第一个 
                 //retObj = objList[0];
                 //objList[0].SetActive(true); 
@@ -91,31 +95,18 @@ public class PoolManager : MonoBehaviour
                 retObj = objList.Pop();
                 retObj.SetActive(true);
                 retObj.BroadcastMessage("Start");
-            }
-            //没有可用的就重新在生成
-            else
-            {
-                int rebulidCount = m_poolObjDictionary[type].m_rebuildCount;
-                GameObject preb = m_poolObjDictionary[type].m_objPreb;
-                //List<GameObject> pool = m_poolObjDictionary[type].m_pool;
-                Stack<GameObject> pool = m_poolObjDictionary[type].m_pool;
-
-                CreateNewPoolObject(m_poolObjDictionary[type], rebulidCount);
-                retObj = Instantiate(preb) as GameObject;
-                retObj.name = retObj.name + m_poolObjDictionary[type].m_uId;
-                m_poolObjDictionary[type].m_uId++;
-                retObj.AddComponent<PoolObject>();
-                retObj.SendMessage("SetPool", pool);
-                retObj.SetActive(true);
-            }
-            retObj.transform.position = pos;
-            retObj.transform.rotation = quat;
+                retObj.transform.position = pos;
+                retObj.transform.rotation = quat;
+                Debug.Log(retObj.name + "分配");
         }
         return retObj;
-
     }
 
+
+
+
     //void CreateNewPoolObject(GameObject preb,int num,List<GameObject> pool)
+    //往对象池中放入指定数量的池对象
     void CreateNewPoolObject(PoolObj poolObj, int num)
     {
         GameObject preb = poolObj.m_objPreb;
@@ -147,8 +138,13 @@ public class PoolManager : MonoBehaviour
     //}
 
 
+    //回收某个物体
+    //public void Recovery(GameObject gameObj)
+   // {
+        //gameObject.SetActive(false);
+        //m_pools.Push(gameObject);
+   // }
 
-
-
+    
 
 }

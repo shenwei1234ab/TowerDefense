@@ -258,6 +258,7 @@
     <Compile Include="Assets\Script\SingleTon\SingleTon1.cs" />
     <Compile Include="Assets\Script\SingleTon\SingleTonTest.cs" />
     <Compile Include="Assets\Script\Skill.cs" />
+    <Compile Include="Assets\Script\Test.cs" />
     <Compile Include="Assets\Script\Tower.cs" />
     <Compile Include="Assets\Script\TowerFactory.cs" />
     <Compile Include="Assets\Script\UI\ItemManger.cs" />

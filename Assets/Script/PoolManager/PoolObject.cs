@@ -31,8 +31,9 @@ public class PoolObject : MonoBehaviour
     //销毁:重新回到对象池中
     public void Recovery()
     {
+        //
+        Debug.Log(gameObject.name + "回收了");
         gameObject.SetActive(false);
         m_pools.Push(gameObject);
-       
     }
 }

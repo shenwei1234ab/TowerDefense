@@ -24,7 +24,8 @@ public class ParticleSystemControl : MonoBehaviour
         }
         else
         {
-            m_particleCompleteEvent(this.gameObject);
+           // m_particleCompleteEvent(this.gameObject);
+            gameObject.SendMessage("Recovery");
         }
     }
 }

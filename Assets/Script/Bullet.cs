@@ -44,15 +44,7 @@ public class Bullet : MonoBehaviour
         //到达目标地点就产生explosionObj
         if(reach)
         {
-            if (m_explosionObj)
-            {
-               // GameObject explosionObj = (GameObject)GameObject.Instantiate(m_explosionObj, m_explosionPos.position, m_explosionPos.rotation);
-                GameObject explosionObj = PoolManager.GetInstance().GetObject(m_explosionObj.name, m_explosionPos.position, m_explosionPos.rotation);
-                //设置爆炸脚本的回掉函数
-                explosionObj.GetComponent<ParticleSystemControl>().m_particleCompleteEvent += ParticleCompleteEvent;
-            }
-            //使用PoolObj的Recovery回收脚本
-            gameObject.SendMessage("Recovery");
+            Destory();
         }
     }
 
@@ -71,31 +63,43 @@ public class Bullet : MonoBehaviour
         return false;
     }
 
+
+    void Destory()
+    {
+        if (m_explosionObj)
+        {
+            GameObject explosionObj = PoolManager.GetInstance().GetObject(m_explosionObj.name, m_explosionPos.position, m_explosionPos.rotation);
+            //设置爆炸脚本的回掉函数
+            explosionObj.GetComponent<ParticleSystemControl>().m_particleCompleteEvent += ParticleCompleteEvent;
+        }
+        if(!gameObject.active)
+        {
+            int i = 1;
+        }
+        //使用PoolObj的Recovery回收脚本
+        gameObject.SendMessage("Recovery");
+    }
     
+
+
    public  virtual void OnTriggerEnter(Collider collider)
    {
         if (collider.tag.CompareTo("Monster") == 0)
         {
             //调用怪物的getdamage方法
             collider.gameObject.SendMessage("GetDamage", m_AttackPower);
-            //如果要爆炸效果
-            if (m_explosionObj)
-            {
-                GameObject explosionObj = PoolManager.GetInstance().GetObject(m_explosionObj.name, m_explosionPos.position, m_explosionPos.rotation);
-                //设置爆炸脚本的回掉函数
-                explosionObj.GetComponent<ParticleSystemControl>().m_particleCompleteEvent += ParticleCompleteEvent;
-            }
-           // Destroy(gameObject);
-            gameObject.SendMessage("Recovery");
+            Destory();
         }
     }
 
     //默认是使particleSystem消失
     public virtual void ParticleCompleteEvent(GameObject obj)
    {
-      // Destroy(obj);
-       Debug.Log(obj.name);
-      obj.SendMessage("Recovery");
+       Debug.Log(obj.name+obj.active);
+        //if(obj.active)
+        //{
+            obj.SendMessage("Recovery");
+       // }
    }
 
 }
