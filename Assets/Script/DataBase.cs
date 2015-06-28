@@ -84,6 +84,44 @@ public class TowerData
 //游戏开始从xml读取怪物和tower的信息
 public class DataBase : ScriptableObject 
 {
+    //玩家解锁的关卡
+    public void SaveStage(int stageLevel)
+    {
+        Debug.Log("savestage" + stageLevel);
+        PlayerPrefs.SetInt("Stage", stageLevel);
+    }
+
+    public int GetStage()
+    {
+       return  PlayerPrefs.GetInt("Stage",1);
+    }
+
+
+
+    //玩家选择的关卡
+    int m_selectedStage=0;
+    
+    public int SelectStage
+    {
+        get
+        {
+            return m_selectedStage;
+        }
+        set
+        {
+            if(value<=0)
+            {
+                Debug.Log("input stage is valid");
+                return;
+            }
+            else
+            {
+                m_selectedStage = value;
+            }
+        }
+    }
+
+
     //我选择的塔的类型
     public List<TowerType> m_selectTowerTypes;
     private static DataBase m_Instance = null;
@@ -92,6 +130,8 @@ public class DataBase : ScriptableObject
         if(m_Instance ==null)
         {
             m_Instance = ScriptableObject.CreateInstance<DataBase>();
+
+            Debug.Log("Create DateBase");
         }
         return m_Instance;
     }

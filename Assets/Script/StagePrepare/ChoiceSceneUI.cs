@@ -168,7 +168,7 @@ public class ChoiceSceneUI : MonoBehaviour
                 Application.LoadLevel("Scene1");
                 break;
             case NormalUIButtonType.BackToMain:
-                Debug.Log("BackToMain");
+                Application.LoadLevel("StageChoice");
                 break;
         }
     }

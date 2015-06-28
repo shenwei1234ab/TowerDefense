@@ -82,5 +82,11 @@ public class GameSetting : MonoBehaviour {
         m_StartTween.PlayReverse();
     }
 
+    //开始游戏
+    public void StartGame()
+    {
+        Application.LoadLevel("StageChoice");
+    }
+
     
 }

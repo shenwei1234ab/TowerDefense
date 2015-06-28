@@ -7,7 +7,8 @@ public enum ButtonType
     DestoryTower,
     Exit,
     NextScene,
-    BackToMain,
+    BackToChoice,
+    BackToPrepare,
     PauseGame,
     ResumeGame,
 }

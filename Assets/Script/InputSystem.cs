@@ -65,8 +65,11 @@ public class InputSystem : MonoBehaviour
                 case ButtonType.NextScene:
                     UIEventListener.Get(button.gameObject).onClick = NextSceneOnClick;
                     break;
-                case ButtonType.BackToMain:
-                    UIEventListener.Get(button.gameObject).onClick = BackToMainOnClick;
+                case ButtonType.BackToPrepare:
+                    UIEventListener.Get(button.gameObject).onClick = BackToPrepareOnClick;
+                    break;
+                case ButtonType.BackToChoice:
+                    UIEventListener.Get(button.gameObject).onClick = BackToChoiceOnClick;
                     break;
                 case ButtonType.PauseGame:
                     UIEventListener.Get(button.gameObject).onClick = PauseGame;
@@ -216,6 +219,17 @@ public class InputSystem : MonoBehaviour
         //ui回到初始位置
         UIManager.Instance().HidPanel();
     }
+    void BackToPrepareOnClick(GameObject button)
+    {
+
+        Application.LoadLevel("StagePrepare");
+    }
+    void BackToChoiceOnClick(GameObject button)
+    {
+
+        Application.LoadLevel("StageChoice");
+    }
+
 
 
     void UIButtonOnHover(GameObject button, bool state)
@@ -231,15 +245,14 @@ public class InputSystem : MonoBehaviour
    }
 
 
-    void BackToMainOnClick(GameObject button)
-    {
-        Debug.Log("BackToMain");
-    }
+
 
 
     void NextSceneOnClick(GameObject button)
     {
-        Debug.Log("NextScene");
+        //
+        Application.LoadLevel("StagePrepare");
+
     }
 
     void PauseGame(GameObject button)
