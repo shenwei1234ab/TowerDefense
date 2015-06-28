@@ -156,10 +156,15 @@ public class ChoiceSceneUI : MonoBehaviour
                 foreach(GameObject obj in m_selectTowersObj)
                 {
                     TowerUIButton towerButton = obj.GetComponent<TowerUIButton>();
-                    towerType.Add(towerButton.m_towerType);
+                    if(towerButton.m_towerType != TowerType.None)
+                    {
+                        towerType.Add(towerButton.m_towerType);
+                    }
+                 
                 }
-                //进入游戏场景
+                //保存数据
                 DataBase.GetInstance().SaveTowerType(towerType);
+                //切换场景
                 Application.LoadLevel("Scene1");
                 break;
             case NormalUIButtonType.BackToMain:

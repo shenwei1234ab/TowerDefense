@@ -138,13 +138,6 @@ public class PoolManager : MonoBehaviour
     //}
 
 
-    //回收某个物体
-    //public void Recovery(GameObject gameObj)
-   // {
-        //gameObject.SetActive(false);
-        //m_pools.Push(gameObject);
-   // }
-
     
 
 }

@@ -85,9 +85,8 @@ public class UIManager : MonoBehaviour
          m_uiTowerButtonInitPos = m_uiTowerButtonPanel.transform.position;
         //等待动画完成开始出最后一波
          m_tweenTime = m_uiLastWave.GetComponent<TweenAlpha>().duration * 2;
-        //读取玩家选择的towertype 并生成相应的uibutton
+        //读取ChoiceScene选择的towertype 并生成相应的uibutton
          int index = 1;
-
         Vector3 initPos = m_towerButtoniconPreb.transform.localPosition;
         foreach( TowerType type in DataBase.GetInstance().m_selectTowerTypes)
         {

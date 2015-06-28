@@ -72,17 +72,13 @@ public class Bullet : MonoBehaviour
             //设置爆炸脚本的回掉函数
             explosionObj.GetComponent<ParticleSystemControl>().m_particleCompleteEvent += ParticleCompleteEvent;
         }
-        if(!gameObject.active)
-        {
-            int i = 1;
-        }
         //使用PoolObj的Recovery回收脚本
         gameObject.SendMessage("Recovery");
     }
     
 
 
-   public  virtual void OnTriggerEnter(Collider collider)
+    void OnTriggerEnter(Collider collider)
    {
         if (collider.tag.CompareTo("Monster") == 0)
         {
@@ -95,11 +91,7 @@ public class Bullet : MonoBehaviour
     //默认是使particleSystem消失
     public virtual void ParticleCompleteEvent(GameObject obj)
    {
-       Debug.Log(obj.name+obj.active);
-        //if(obj.active)
-        //{
-            obj.SendMessage("Recovery");
-       // }
+       obj.SendMessage("Recovery");
    }
 
 }

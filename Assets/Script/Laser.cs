@@ -84,7 +84,7 @@ public class Laser : Bullet
     }
 
 
-    public  void OnTriggerEnter(Collider collider)
+     void OnTriggerEnter(Collider collider)
     {
         //射击到了怪物
         if (collider.tag.CompareTo("Monster") == 0)
