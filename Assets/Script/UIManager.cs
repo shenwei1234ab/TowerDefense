@@ -1,18 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 //ui管理
 public class UIManager : MonoBehaviour 
 {
+
+
     public GameObject m_towerButtoniconPreb;
     public float m_towerButtoniconAnchor = -67.0f;
     private static UIManager m_instance;
-    public static UIManager Instance()
+    public static UIManager GetInstance()
     {
         return m_instance;
     }
-  
+
+
+    public Dictionary<string, GameObject> m_uiElements = new Dictionary<string, GameObject>();
 
 
     //ui的升级面板
@@ -102,12 +106,57 @@ public class UIManager : MonoBehaviour
 	}
 
 
+
     IEnumerator LastWaveStart()
     {
         yield return new WaitForSeconds(m_tweenTime);
-        Destroy(m_uiLastWave.gameObject);
+        //Destroy(m_uiLastWave.gameObject);
+        m_uiLastWave.gameObject.SetActive(false);
         //开始出兵
         GameManager.GetInstance().ProductEnemy(true);
+    }
+
+    //存放血条预设的文件位置
+    public string m_lifePrebFilePath = "Assets/Prefab/LifeBar.prefab";
+
+
+    uint m_uiElementId = 0;
+    //添加血条
+    public void AddLifeBar(Enemy enemy)
+    {
+        //从Prefab文件中载入血条的预设
+        GameObject lifeBarPreb = Resources.LoadAssetAtPath<GameObject>(m_lifePrebFilePath);
+       //Camera uiCamera = GameObject.Find("Camera").GetComponent<Camera>();
+        //在uicamera中生成
+       GameObject newLifeBar = (GameObject)GameObject.Instantiate(lifeBarPreb);
+        newLifeBar.transform.parent = m_uiCamera.transform;
+        newLifeBar.transform.localScale = new Vector3(1, 1, 1);
+        newLifeBar.name = newLifeBar.name + m_uiElementId.ToString();
+        
+        MyUIFollowTarget uiTarget = newLifeBar.GetComponent<MyUIFollowTarget>();
+        uiTarget.m_targetTransform = enemy.m_LifeBarPoint.transform;
+        //获取血量
+        enemy.m_lifeSlider = newLifeBar.GetComponent<UISlider>();
+
+        m_uiElements.Add(newLifeBar.name, newLifeBar);
+        m_uiElementId++;
+    }
+
+
+    public void DestoryUIElements(GameObject uiElementObj)
+    {
+        m_uiElements.Remove(uiElementObj.name);
+        Destroy(uiElementObj);
+    }
+
+
+    public void DestoryAllUIElements()
+    {
+        foreach (KeyValuePair<string, GameObject> element in m_uiElements)
+        {
+            Destroy(element.Value);
+        }
+        m_uiElements.Clear();
     }
 
 
@@ -194,6 +243,10 @@ public class UIManager : MonoBehaviour
         m_uiGameOver.SetActive(true);
     }
 
+    public void HideGameOverPanel()
+    {
+        m_uiGameOver.SetActive(false);
+    }
 
 
 }

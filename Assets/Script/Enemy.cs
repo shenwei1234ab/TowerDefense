@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
 
     public int m_maxLife = 50;
     private int m_curLife = 50;
-    private UISlider m_lifeSlider;
+    public UISlider m_lifeSlider;
 
     private float m_uiLife;
 
@@ -44,22 +44,24 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        //从Prefab文件中载入血条的预设
-        m_LifeBarPreb = Resources.LoadAssetAtPath<GameObject>(m_lifePrebFilePath);
-        m_uiCamera = GameObject.Find("Camera").GetComponent<Camera>();
-        m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-        //在uicamera中生成
-        GameObject newLifeBar = (GameObject)GameObject.Instantiate(m_LifeBarPreb);
-        newLifeBar.transform.parent = m_uiCamera.transform;
-        newLifeBar.transform.localScale = new Vector3(1, 1, 1);
+        ////从Prefab文件中载入血条的预设
+        //m_LifeBarPreb = Resources.LoadAssetAtPath<GameObject>(m_lifePrebFilePath);
+        //m_uiCamera = GameObject.Find("Camera").GetComponent<Camera>();
+        //m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+        ////在uicamera中生成
+        //GameObject newLifeBar = (GameObject)GameObject.Instantiate(m_LifeBarPreb);
+        //newLifeBar.transform.parent = m_uiCamera.transform;
+        //newLifeBar.transform.localScale = new Vector3(1, 1, 1);
 
 
-        MyUIFollowTarget uiTarget = newLifeBar.GetComponent<MyUIFollowTarget>();
-        uiTarget.m_targetTransform = m_LifeBarPoint.transform;
+        //MyUIFollowTarget uiTarget = newLifeBar.GetComponent<MyUIFollowTarget>();
+        //uiTarget.m_targetTransform = m_LifeBarPoint.transform;
         
         
-        //获取血量
-        m_lifeSlider = newLifeBar.GetComponent<UISlider>();
+        ////获取血量
+        //m_lifeSlider = newLifeBar.GetComponent<UISlider>();
+        //载入血条
+        UIManager.GetInstance().AddLifeBar(this);
     }
 
 
@@ -109,8 +111,9 @@ public class Enemy : MonoBehaviour
             //到了基地
             if (m_TargetNode.m_Next == null)
             {
+                
                 GameManager.GetInstance().ReduceLife(m_enemyDamage);
-                DestoryEnemy();
+                EnemyDead();
             }
             //到达了PathNode
             else
@@ -124,17 +127,19 @@ public class Enemy : MonoBehaviour
         m_Transform.Translate(m_Transform.forward * Time.deltaTime * m_enemySpeed, Space.World);
     }
        
-    //销毁了
-    void DestoryEnemy()
+    //敌人死了
+    void EnemyDead()
     {
         m_ifDead = true;
         animation.Play(m_DieAnimationName);
         StartCoroutine("dieComplete");
-        //销毁ui
-        Destroy(m_lifeSlider.gameObject);
+        
+         //销毁ui
+        UIManager.GetInstance().DestoryUIElements(m_lifeSlider.gameObject);
+       
+       // Destroy(m_lifeSlider.gameObject);
 
-        //从GameManager的容器中移出
-        GameManager.GetInstance().m_EnemyList.Remove(this);
+        //EnemyFactory.GetInstance().DestoryEnemy(this.gameObject);
     }
 
     //设置当前的生命值
@@ -186,7 +191,7 @@ public class Enemy : MonoBehaviour
         Life = m_curLife - damage;
         if(Life <= 0)
         {
-            DestoryEnemy();
+            EnemyDead();
             //添加金币
             GameManager.GetInstance().AddCoin(m_enemyCoin);
             
@@ -205,6 +210,10 @@ public class Enemy : MonoBehaviour
         {
             GameManager.GetInstance().GameComplete();
         }
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        EnemyFactory.GetInstance().DestoryEnemy(this.gameObject);
     }
+
+
+
 }

@@ -44,6 +44,11 @@ public class PoolManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Init();
+    }
+
+    public void Init()
+    {
         m_poolObjDictionary = new Dictionary<string, PoolObj>();
         //遍历preb依次存入map集合中以便于之后取出 
         foreach (PoolObj obj in m_poolObjArray)
@@ -52,8 +57,8 @@ public class PoolManager : MonoBehaviour
             CreateNewPoolObject(obj, obj.m_initCount);
             m_poolObjDictionary.Add(obj.m_objPreb.name, obj);
         }
-
     }
+
 
     // Update is called once per frame
     void Update()
@@ -136,7 +141,18 @@ public class PoolManager : MonoBehaviour
     //        pool.Push(newObj);
     //    }
     //}
+    public void DestoryAllPoolObj()
+    {
+        for(int index=0;index<m_poolObjArray.Length;++index)
+        {
+            foreach( GameObject obj in m_poolObjArray[index].m_pool)
+            {
+                Destroy(obj);
+            }
+            m_poolObjArray[index].m_pool.Clear();
+        }
 
+    }
 
     
 

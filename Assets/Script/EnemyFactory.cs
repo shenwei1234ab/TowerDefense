@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 using Mono.Xml;
 using System.IO;
 
@@ -8,6 +8,14 @@ using System.Security;
 
 public class EnemyFactory : MonoBehaviour
 {
+    static EnemyFactory m_instance;
+    public static EnemyFactory GetInstance()
+    {
+        return m_instance;
+    }
+
+    //当前所有的敌人容器
+    public Dictionary<string, GameObject> m_EnemyList = new Dictionary<string, GameObject>();
 
     enum WaveState
     {
@@ -61,21 +69,30 @@ public class EnemyFactory : MonoBehaviour
     public int m_totalEnemies;
     void Awake()
     {
-        
+        m_instance = this;
     }
 
 	void Start () 
     {
         //使用mono.xml解析xml文件
         ReadXML();
+        Init();
+	}
+
+    public void Init()
+    {
+        m_Index = 0;
         //获得第一个敌人
         EnemyData data = (EnemyData)m_EnemyDataList[m_Index];
         m_Timer = data.m_Wait;
         m_waveState = WaveState.NormalWave;
-	}
-
-
+    }
     
+    
+  
+
+
+
     //读入XML数据并存入到m_EnemyDataList容器中
     void ReadXML()
     {
@@ -108,7 +125,7 @@ public class EnemyFactory : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-     
+        
         if (!m_ifProductMonster)
         {
             return;
@@ -139,7 +156,7 @@ public class EnemyFactory : MonoBehaviour
                 if(currWave == GameManager.GetInstance().nTotalWaves && m_waveState==WaveState.NormalWave)
                 {
                     ///////////////////////////播放boss来了的动画
-                    UIManager.Instance().ShowLastWave();
+                    UIManager.GetInstance().ShowLastWave();
                     //停止出兵直到动画播放完成
                     m_ifProductMonster = false;
                     m_waveState = WaveState.LastWave;
@@ -148,6 +165,9 @@ public class EnemyFactory : MonoBehaviour
             }
         }
 	}
+
+
+    uint m_enemyId=0;
     //产生敌人
     void ProduceEnemy()
     {
@@ -169,7 +189,9 @@ public class EnemyFactory : MonoBehaviour
             enemyComponet.m_enemyDamage = enemyData.enemyDamage;
             enemyComponet.m_enemyCoin = enemyData.enemyCoin;
             enemyComponet.m_enemyFactory = this;
-            GameManager.GetInstance().m_EnemyList.Add(enemyComponet);
+            newEnemy.name = newEnemy.name + m_enemyId.ToString();
+          m_EnemyList.Add(newEnemy.name, newEnemy);
+          m_enemyId++;
         //准备读取下一条记录
         //如果当前是最后一条记录
         if (m_Index >= m_EnemyDataList.Count-1)
@@ -188,10 +210,29 @@ public class EnemyFactory : MonoBehaviour
     }
 
 
+
+
     //从database中找到key对应的Monster信息
     Monster FindEnemy(string name, int level)
     {
         string key = name + level.ToString();
        return DataBase.GetInstance().m_MonsterDatas[key];
+    }
+
+
+    public  void DestoryEnemy(GameObject enemyObj)
+    {
+        m_EnemyList.Remove(enemyObj.name);
+        Destroy(enemyObj);
+    }
+
+
+    public void DestoryAllEnemy()
+    {
+        foreach (KeyValuePair<string, GameObject> enemy in m_EnemyList)
+        {
+            Destroy(enemy.Value);
+        }
+        m_EnemyList.Clear();
     }
 }

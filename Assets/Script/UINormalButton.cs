@@ -11,6 +11,7 @@ public enum ButtonType
     BackToPrepare,
     PauseGame,
     ResumeGame,
+    RestartGame
 }
 public class UINormalButton : UiButton 
 {

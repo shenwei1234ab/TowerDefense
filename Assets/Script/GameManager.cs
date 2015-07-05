@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 
 public enum GameStatus
@@ -25,11 +25,6 @@ public class GameManager : MonoBehaviour
     public LayerMask m_groundLayer;
     //基地的生命
     public int m_Life = 100;
-    //当前所有的敌人容器
-    public ArrayList m_EnemyList = new ArrayList();
-	
-   //当前所有的tower容器
-    public ArrayList m_TowerList = new ArrayList();
 
 
     public GameObject m_processBarPreb;
@@ -49,11 +44,21 @@ public class GameManager : MonoBehaviour
 
 	void Start () 
     {
-        //开始产生怪物
-         GameObject enemyFactory = GameObject.Find("EnemyFactory");
-        m_enemyFactory =  enemyFactory.GetComponent<EnemyFactory>();
-        ProductEnemy(true);
+        Init();
 	}
+
+
+
+    void Init()
+    {
+        Coins = 10;
+        Life = 100;
+        //开始产生怪物
+        GameObject enemyFactory = GameObject.Find("EnemyFactory");
+        m_enemyFactory = enemyFactory.GetComponent<EnemyFactory>();
+        ProductEnemy(true);
+    }
+
 
 
     public void ProductEnemy(bool control)
@@ -69,7 +74,7 @@ public class GameManager : MonoBehaviour
         {
             m_Wave = value;
             //在ui上显示
-            UIManager.Instance().CurWave = m_Wave;
+            UIManager.GetInstance().CurWave = m_Wave;
         }
         get
         {
@@ -84,7 +89,7 @@ public class GameManager : MonoBehaviour
        set
        {
            m_TotalWaves = value;
-           UIManager.Instance().TotalWaves = m_TotalWaves;
+           UIManager.GetInstance().TotalWaves = m_TotalWaves;
        }
         get
        {
@@ -111,7 +116,7 @@ public class GameManager : MonoBehaviour
         //否则面板显示 
         else
         {
-            UIManager.Instance().ShowPanel(hitPoint);  
+            UIManager.GetInstance().ShowPanel(hitPoint);  
         }
     }
     
@@ -131,12 +136,11 @@ public class GameManager : MonoBehaviour
           if (m_curCoins < needCost)
           {
               //产生提示
-              UIManager.Instance().CreateWarning(hitPos, "金钱不够");
+              UIManager.GetInstance().CreateWarning(hitPos, "金钱不够");
               return false;
           }
           //在指定的位置创建tower;
           Tower newTower = TowerFactory.GetInstance().ProduceTower(towerType, 1, hitPos);
-          m_TowerList.Add(newTower);
           //减少钱
           Coins -= needCost;
           return true;
@@ -163,7 +167,7 @@ public class GameManager : MonoBehaviour
         m_curCoins += coins;
         //ui
         //m_uiManger.Coins = m_curCoins;
-        UIManager.Instance().Coins = m_curCoins;
+        UIManager.GetInstance().Coins = m_curCoins;
     }
 
 
@@ -182,22 +186,44 @@ public class GameManager : MonoBehaviour
             }
             m_curCoins = value;
             //m_uiManger.Coins = m_curCoins;
-            UIManager.Instance().Coins = m_curCoins;
+            UIManager.GetInstance().Coins = m_curCoins;
         }
     }
 
+    public int Life
+    {
+        get
+        {
+            return m_Life;
+        }
+
+        set
+        {
+            if(value<=0)
+            {
+                value = 0;
+            }
+            m_Life = value;
+            UIManager.GetInstance().Life = m_Life;
+            if (m_Life == 0)
+            {
+                GameOver();
+            }
+        }
+        
+    }
 
     //基地受到伤害
     public void ReduceLife(int reduceLife)
     {
         m_Life -= reduceLife;
-        if(m_Life <=0)
+        if (m_Life <= 0)
         {
             m_Life = 0;
         }
-       // m_uiManger.Life = m_Life;
-        UIManager.Instance().Life = m_Life;
-        if(m_Life == 0)
+        // m_uiManger.Life = m_Life;
+        UIManager.GetInstance().Life = m_Life;
+        if (m_Life == 0)
         {
             GameOver();
         }
@@ -212,7 +238,7 @@ public class GameManager : MonoBehaviour
         int curLevel = selectTower.m_curLevel;
         if (curLevel >= selectTower.m_maxLevel)
         {
-            UIManager.Instance().CreateWarning(towerPos, "当前是最大等级");
+            UIManager.GetInstance().CreateWarning(towerPos, "当前是最大等级");
             //ui显示
             return false;
         }
@@ -225,19 +251,22 @@ public class GameManager : MonoBehaviour
         if (m_curCoins < needCost)
         {
             //产生提示
-            UIManager.Instance().CreateWarning(towerPos, "金钱不够");
-            UIManager.Instance().HidPanel();
+            UIManager.GetInstance().CreateWarning(towerPos, "金钱不够");
+            UIManager.GetInstance().HidPanel();
             return false;
         }
         //在指定的位置创建tower;
         Tower newTower = TowerFactory.GetInstance().ProduceTower(selectTower.m_towerType, nextLevel, towerPos);
-        m_TowerList.Add(newTower);
         //减少钱
         Coins -= needCost;
+
+
+        TowerFactory.GetInstance().DestoryTower(selectTower.gameObject);
+
         //销毁原来的塔
-        Destroy(selectTower.gameObject);
+       // Destroy(selectTower.gameObject);
         //隐藏uipanel
-        UIManager.Instance().HidPanel();
+        UIManager.GetInstance().HidPanel();
         return true;
     }
 
@@ -245,8 +274,8 @@ public class GameManager : MonoBehaviour
     public void DestoryTower(Tower selectTower)
     {
         //销毁塔
-        Destroy(selectTower.gameObject);
-        UIManager.Instance().HidPanel();
+        TowerFactory.GetInstance().DestoryTower(selectTower.gameObject);
+        UIManager.GetInstance().HidPanel();
     }
 
 
@@ -294,7 +323,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         m_gameStatus = GameStatus.GameOver;
-        UIManager.Instance().ShowGameOverPanel();
+        UIManager.GetInstance().ShowGameOverPanel();
     }
 
     //消灭了所有敌人
@@ -306,6 +335,30 @@ public class GameManager : MonoBehaviour
         }
         m_gameStatus = GameStatus.GameIsFininshed;
         // ui
-        UIManager.Instance().ShowGameCompletePanel();
+        UIManager.GetInstance().ShowGameCompletePanel();
     }  
+
+
+    public void RestartGame()
+    {
+        Debug.Log("RestartGame");
+        //清除场上的所有对象
+        TowerFactory.GetInstance().DestoryAllTower();
+        EnemyFactory.GetInstance().DestoryAllEnemy();
+        PoolManager.GetInstance().DestoryAllPoolObj();
+        UIManager.GetInstance().DestoryAllUIElements();
+        
+        //清除ui分数
+       UIManager.GetInstance().HideGameOverPanel();
+
+
+       //
+
+       m_enemyFactory.Init();
+        Init();
+        m_gameStatus = GameStatus.GameStart;
+    }
+
+
+
 }

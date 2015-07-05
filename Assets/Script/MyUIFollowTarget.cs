@@ -25,6 +25,7 @@ public class MyUIFollowTarget : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+
         Vector3 pos = Camera.main.WorldToViewportPoint(m_targetTransform.position);
         bool isVisible = pos.x > 0f && pos.x < 1f && pos.y > 0f && pos.y < 1f;
         //Debug.Log(pos);

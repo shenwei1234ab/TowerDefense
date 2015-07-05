@@ -88,7 +88,7 @@ public class Tower : MonoBehaviour
             m_processBarPos = this.transform;
         }
         //GameObject processBar = UIManager.CreateObjInUI(m_processBarPos.position, newBar);
-        m_processBar = UIManager.Instance().CreateObjInUI(m_processBarPos.position, newBar);
+        m_processBar = UIManager.GetInstance().CreateObjInUI(m_processBarPos.position, newBar);
         //注册事件
         m_processBar.GetComponent<ProcessBar>().m_timeOverEvent += BuildComplete;
 	}
@@ -206,4 +206,10 @@ public class Tower : MonoBehaviour
           m_Timer = m_AttackTime;
       }
 
+
+
+    public void DestoryTower()
+    {
+        TowerFactory.GetInstance().DestoryTower(this.gameObject);
+    }
 }

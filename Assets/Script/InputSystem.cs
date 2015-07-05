@@ -77,6 +77,9 @@ public class InputSystem : MonoBehaviour
                 case ButtonType.ResumeGame:
                     UIEventListener.Get(button.gameObject).onClick = ResumeGame;
                     break;
+                case ButtonType.RestartGame:
+                   UIEventListener.Get(button.gameObject).onClick = RestartGame;
+                    break;
             }
         }
         UIEventListener.Get(button.gameObject).onHover = UIButtonOnHover;
@@ -136,7 +139,7 @@ public class InputSystem : MonoBehaviour
                         {
                             if(m_selectTower)
                             {
-                                UIManager.Instance().HidPanel();
+                                UIManager.GetInstance().HidPanel();
                                 m_selectTower = null;
                             }
                             //不能建造塔 
@@ -146,7 +149,7 @@ public class InputSystem : MonoBehaviour
                         {                          
                             if (m_selectTower )
                             {
-                                UIManager.Instance().HidPanel();
+                                UIManager.GetInstance().HidPanel();
                                 m_selectTower = null;
                             }
                             if (!m_selectButton)
@@ -217,7 +220,7 @@ public class InputSystem : MonoBehaviour
     void ExitButtonOnClick(GameObject button)
     {
         //ui回到初始位置
-        UIManager.Instance().HidPanel();
+        UIManager.GetInstance().HidPanel();
     }
     void BackToPrepareOnClick(GameObject button)
     {
@@ -231,7 +234,7 @@ public class InputSystem : MonoBehaviour
     }
 
 
-
+    
     void UIButtonOnHover(GameObject button, bool state)
    {
        if(state)
@@ -264,6 +267,13 @@ public class InputSystem : MonoBehaviour
     void ResumeGame(GameObject button)
     {
         GameManager.GetInstance().ResumeGame();
+    }
+
+
+
+    public void RestartGame(GameObject button)
+    {
+        GameManager.GetInstance().RestartGame();
     }
 }
 
