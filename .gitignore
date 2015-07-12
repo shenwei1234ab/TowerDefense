@@ -18,7 +18,8 @@ obj/
 *.user
 *.unityproj
 *.booproj
-
+*.meta
+*.CSharp
 ============
 OS generated
 ============

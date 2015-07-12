@@ -1,0 +1,45 @@
+show dbs;
+use mldndb
+show dbs;
+use mldndb;
+db.mldndb.find();
+show tables;
+db.users.find();
+show dbs
+use mldndb
+dir
+show tables;
+db.users.insert({username:'shenwei',password:'64512786'});
+db.users.find();
+use ProjectCost
+db.ProjectCost.insert({projectname:'Ô¥Ô°',cost:40});
+db.ProjectCost.insert({projectname:'Óñ·ðËÂ',cost:30});
+show tables;
+dir
+show dbs;
+use mldndb;
+show tables;
+show dbs;
+use mldnbd;
+show tables;
+show tables
+use mldndb;
+show tables;
+db.ProjectCost.insert({projectname:'Ô¥Ô°',cost:40});
+db.ProjectCost.insert({projectname:'Óñ·ðËÂ',cost:30});
+show tables;
+show tables;
+use ProjectCost
+db.ProjectCost.find();
+use projects
+db.projects.insert({projectname:'Ô¥Ô°',cost:40});
+db.projects.insert({projectname:'Óñ·ðËÂ',cost:30});
+use projects
+db.projects.find();
+show dbs;
+use mldndb
+show tables;
+db.projects.insert({projectname:'Ô¥Ô°',cost:40});
+show tables;
+db.projects.insert({projectname:'Óñ·ðËÂ',cost:30});
+db.projects.find();
