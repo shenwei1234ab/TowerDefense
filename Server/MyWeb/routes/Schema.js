@@ -12,7 +12,7 @@ var Schema = mongoose.Schema;	//
 var UserSchema = new Schema(
 {
     //userid: String,
-    name: String,
+    username: String,
     password: String,
     type:String
 });

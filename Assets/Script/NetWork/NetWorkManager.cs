@@ -2,13 +2,6 @@
 using System.Collections;
 using LitJson;
 using System.Collections.Generic;
-public enum StateCode
-{
-    DataBaseError = 1000,
-    LoginFail =1001,
-    LoginSuccess =1002,
-    Timeout =1003,
-}
 
 public class NetWorkManager  :MonoBehaviour
 {
@@ -30,6 +23,7 @@ public class NetWorkManager  :MonoBehaviour
         //headers.Add("Content-Type", "application/x-www-form-urlencoded");
         //
         string postData = Protocal.ObjectToJson(postObj);
+        Debug.Log("postData is " + postData);
         byte[] bs = System.Text.UTF8Encoding.UTF8.GetBytes(postData);
 
         WWW www = new WWW(strUrl, bs, headers);
@@ -62,6 +56,11 @@ public class NetWorkManager  :MonoBehaviour
     {
         Debug.Log("Login");
         StartCoroutine(IPostData(reqLogin, "127.0.0.1:3000/login", resLogin, getDataFun));
-       // Debug.Log(resLogin.UserID);
+    }
+
+
+    public void Register(Protocal.HTTP_RequestRegister reqRegister,Protocal.HTTP_ResponseRegister resRegister,GetDateHandle getDataFun)
+    {
+        StartCoroutine(IPostData(reqRegister, "127.0.0.1:3000/register", resRegister, getDataFun));
     }
 }

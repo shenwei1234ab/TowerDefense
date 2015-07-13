@@ -3,27 +3,16 @@ using System.Collections;
 
 namespace MainScene
 {
-    public class LoginModule : MonoBehaviour
+    public class RegisterModule : MonoBehaviour
     {
 
         public UILabel m_InputUsername;
         public UILabel m_InputPassword;
+        public UILabel m_RepeatPassword;
         public UILabel m_Error;
 
 
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-
+        //判断输入的内容是否合法
         bool IfLegal()
         {
             if (m_InputUsername.text.Trim().Equals("") || m_InputPassword.text.Trim().Equals(""))
@@ -31,27 +20,32 @@ namespace MainScene
                 ShowError("用户名或密码不为空！！");
                 return false;
             }
+            if (m_InputPassword.text != m_RepeatPassword.text)
+            {
+                ShowError("两次输入的密码不一致！！");
+                return false;
+            }
             return true;
         }
+        
 
         public void Post()
         {
-            if(!IfLegal())
+            if (!IfLegal())
             {
-                return;
+                return; 
             }
-            //判断判断用户名和密码是否正确
-            Protocal.HTTP_RequestLogin reqLogin = new Protocal.HTTP_RequestLogin(m_InputUsername.text, m_InputPassword.text);
-            Protocal.HTTP_ResponseLogin resLogin = new Protocal.HTTP_ResponseLogin();
+            Protocal.HTTP_RequestRegister reqRegister = new Protocal.HTTP_RequestRegister(m_InputUsername.text, m_InputPassword.text);
+            Protocal.HTTP_ResponseRegister resRegister = new Protocal.HTTP_ResponseRegister();
             //设置request对象和response对象和得到http请求的回调函数
-            NetWorkManager.GetInstance().Login(reqLogin, resLogin, this.LoginHandler);
+            NetWorkManager.GetInstance().Register(reqRegister,resRegister, this.RegisterHandler);
         }
 
-        void LoginHandler(object getDate)
+        void RegisterHandler(object getDate)
         {
-            Protocal.HTTP_ResponseLogin resDate = (Protocal.HTTP_ResponseLogin)getDate;
-            //登陆成功 
-            if (resDate.StateCode == (uint)StateCode.LoginSuccess)
+            Protocal.HTTP_ResponseRegister resDate = (Protocal.HTTP_ResponseRegister)getDate;
+            //注册成功
+            if (resDate.StateCode == (uint)StateCode.RegisterSuccess)
             {
                 UIManager.Instance.StartGame();
             }
@@ -59,18 +53,16 @@ namespace MainScene
             {
                 ShowError(resDate.LogMessage);
             }
-            Debug.Log(resDate.StateCode);
-            Debug.Log(resDate.LogMessage);
-            Debug.Log(resDate.UserID);
         }
 
+
+       
 
         public void ShowError(string errorMessage)
         {
             m_Error.gameObject.SetActive(true);
             m_Error.text = errorMessage;
         }
-
     }
-
 }
+

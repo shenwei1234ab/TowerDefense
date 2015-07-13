@@ -3,11 +3,32 @@ using System;
 using System.Collections;
 using LitJson;
 
+public enum StateCode
+{
+    DataBaseError = 1000,
+    LoginFail = 1001,
+    LoginSuccess = 1002,
+    RegisterFail = 1003,
+    RegisterSuccess = 1004,
+    Timeout = 1003,
+}
+
 public class Protocal : MonoBehaviour {
 
     public class HTTP_RequestLogin
     {
         public HTTP_RequestLogin(string username,string password)
+        {
+            Username = username;
+            Password = password;
+        }
+        public string Username;
+        public string Password;
+    }
+
+    public class HTTP_RequestRegister
+    {
+        public HTTP_RequestRegister(string username,string password)
         {
             Username = username;
             Password = password;
@@ -24,7 +45,12 @@ public class Protocal : MonoBehaviour {
         public String UserID;
     }
 
-
+    public class HTTP_ResponseRegister
+    {
+        public uint StateCode;
+        public String LogMessage;
+        public String UserID;
+    }
 
 
 

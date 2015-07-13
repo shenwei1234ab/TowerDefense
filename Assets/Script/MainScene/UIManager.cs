@@ -114,9 +114,7 @@ namespace MainScene
         /// </summary>
         public void PostRegister()
         {
-            //两次输入是否一致
-
-
+            m_RegisterModule.SendMessage("Post");
         }
 
         public void RegisterCancel()

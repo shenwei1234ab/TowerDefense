@@ -15,6 +15,7 @@ var RouteFindPlan = require('./routes/FindPlan');
 var http = require('http');
 var path = require('path');
 var RouteLogin=require('./routes/Login');
+var RouteRegister=require('./routes/Register');
 var RouteOrder=require('./routes/Order');
 var RouteProject=require('./routes/Project');
 var RouteCost=require('./routes/Cost');
@@ -144,6 +145,7 @@ app.get('/doCostSummary',RouteCost.doCostSummary);
 
 ////////////////////////////////////////////////////////////////
 app.post('/login',RouteLogin.Login);
+app.post('/register',RouteRegister.Register);
 http.createServer(app).listen(app.get('port'), function()
 {
   console.log('Express server listening on port ' + app.get('port'));

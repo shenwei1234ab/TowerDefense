@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 var models = require('../routes/Schema');
-var User = models.User;
+var userModel = models.User;
 
 function UserObj()
 {
@@ -14,7 +14,7 @@ module.exports = UserObj;
 
 UserObj.prototype.get = function get(queryStr,queryfield,callback)
 {
-    User.findOne(queryStr,{},function(err,doc)
+    userModel.findOne(queryStr,{},function(err,doc)
     {
         if(err)
         {
@@ -34,45 +34,30 @@ UserObj.prototype.get = function get(queryStr,queryfield,callback)
     })
 }
 
-//辨别用户是否存在
-UserObj.prototype.identify=function identify(username,password,callback)
+
+UserObj.prototype.save = function save(username,password,callback)
 {
-    console.log("identify");
-    var inputInfo=
+    var userEntity = new userModel(
     {
-       username:username,
-       password:password
-
-    };
-
-  /*  User.count(inputInfo, function (err, doc)
-    {
-        if(err)
-        {
-            return callback(err);
-        }
-        else
-        {
-             return callback(null,doc);
-        }
-    });*/
-
-    User.findOne(inputInfo,{},function(err,doc)
-    {
-        if (!doc)
-            err = "没有找到对应的用户";
-        if(err)
-        {
-            return callback(null);
-        }
-        else
-        {
-            console.log("doc is "+doc);
-            console.log("doc.username"+doc.username);
-            console.log("doc.type " +doc.type);
-            return callback(null,doc);
-        }
+        username:username,
+        password:password
     });
-};
+    var userid = userEntity._id;
+    userEntity.save(function(error)
+    {
+        if(error)
+        {
+            callback(error);
+        }
+        else
+        {
+            callback(null,userid)
+        }
+    })
+}
+
+
+
+
 
 
